@@ -34,21 +34,21 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Resource information.
-struct Opentelemetry_Proto_Resource_V1_Resource {
+public struct Opentelemetry_Proto_Resource_V1_Resource {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Set of labels that describe the resource.
-  var attributes: [Opentelemetry_Proto_Common_V1_AttributeKeyValue] = []
+  public var attributes: [Opentelemetry_Proto_Common_V1_AttributeKeyValue] = []
 
   /// dropped_attributes_count is the number of dropped attributes. If the value is 0, then
   /// no attributes were dropped.
-  var droppedAttributesCount: UInt32 = 0
+  public var droppedAttributesCount: UInt32 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -56,13 +56,13 @@ struct Opentelemetry_Proto_Resource_V1_Resource {
 fileprivate let _protobuf_package = "opentelemetry.proto.resource.v1"
 
 extension Opentelemetry_Proto_Resource_V1_Resource: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Resource"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".Resource"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "attributes"),
     2: .standard(proto: "dropped_attributes_count"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.attributes)
@@ -72,7 +72,7 @@ extension Opentelemetry_Proto_Resource_V1_Resource: SwiftProtobuf.Message, Swift
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.attributes.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.attributes, fieldNumber: 1)
     }
@@ -82,7 +82,7 @@ extension Opentelemetry_Proto_Resource_V1_Resource: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Resource_V1_Resource, rhs: Opentelemetry_Proto_Resource_V1_Resource) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Resource_V1_Resource, rhs: Opentelemetry_Proto_Resource_V1_Resource) -> Bool {
     if lhs.attributes != rhs.attributes {return false}
     if lhs.droppedAttributesCount != rhs.droppedAttributesCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

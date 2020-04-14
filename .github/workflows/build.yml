@@ -30,6 +30,9 @@ jobs:
       run: |
         brew bundle
 
+    - name: generate sources
+      run: ./scripts/generate_sources.sh
+
     - name: build and test
       run: swift test --enable-code-coverage -v
 

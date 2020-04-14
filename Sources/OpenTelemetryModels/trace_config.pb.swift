@@ -35,15 +35,15 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 /// Global configuration of the trace service. All fields must be specified, or
 /// the default (zero) values will be used for each type.
-struct Opentelemetry_Proto_Trace_V1_TraceConfig {
+public struct Opentelemetry_Proto_Trace_V1_TraceConfig {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The global default sampler used to make decisions on span sampling.
-  var sampler: Opentelemetry_Proto_Trace_V1_TraceConfig.OneOf_Sampler? = nil
+  public var sampler: Opentelemetry_Proto_Trace_V1_TraceConfig.OneOf_Sampler? = nil
 
-  var constantSampler: Opentelemetry_Proto_Trace_V1_ConstantSampler {
+  public var constantSampler: Opentelemetry_Proto_Trace_V1_ConstantSampler {
     get {
       if case .constantSampler(let v)? = sampler {return v}
       return Opentelemetry_Proto_Trace_V1_ConstantSampler()
@@ -51,7 +51,7 @@ struct Opentelemetry_Proto_Trace_V1_TraceConfig {
     set {sampler = .constantSampler(newValue)}
   }
 
-  var probabilitySampler: Opentelemetry_Proto_Trace_V1_ProbabilitySampler {
+  public var probabilitySampler: Opentelemetry_Proto_Trace_V1_ProbabilitySampler {
     get {
       if case .probabilitySampler(let v)? = sampler {return v}
       return Opentelemetry_Proto_Trace_V1_ProbabilitySampler()
@@ -59,7 +59,7 @@ struct Opentelemetry_Proto_Trace_V1_TraceConfig {
     set {sampler = .probabilitySampler(newValue)}
   }
 
-  var rateLimitingSampler: Opentelemetry_Proto_Trace_V1_RateLimitingSampler {
+  public var rateLimitingSampler: Opentelemetry_Proto_Trace_V1_RateLimitingSampler {
     get {
       if case .rateLimitingSampler(let v)? = sampler {return v}
       return Opentelemetry_Proto_Trace_V1_RateLimitingSampler()
@@ -68,30 +68,30 @@ struct Opentelemetry_Proto_Trace_V1_TraceConfig {
   }
 
   /// The global default max number of attributes per span.
-  var maxNumberOfAttributes: Int64 = 0
+  public var maxNumberOfAttributes: Int64 = 0
 
   /// The global default max number of annotation events per span.
-  var maxNumberOfTimedEvents: Int64 = 0
+  public var maxNumberOfTimedEvents: Int64 = 0
 
   /// The global default max number of attributes per timed event.
-  var maxNumberOfAttributesPerTimedEvent: Int64 = 0
+  public var maxNumberOfAttributesPerTimedEvent: Int64 = 0
 
   /// The global default max number of link entries per span.
-  var maxNumberOfLinks: Int64 = 0
+  public var maxNumberOfLinks: Int64 = 0
 
   /// The global default max number of attributes per span.
-  var maxNumberOfAttributesPerLink: Int64 = 0
+  public var maxNumberOfAttributesPerLink: Int64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// The global default sampler used to make decisions on span sampling.
-  enum OneOf_Sampler: Equatable {
+  public enum OneOf_Sampler: Equatable {
     case constantSampler(Opentelemetry_Proto_Trace_V1_ConstantSampler)
     case probabilitySampler(Opentelemetry_Proto_Trace_V1_ProbabilitySampler)
     case rateLimitingSampler(Opentelemetry_Proto_Trace_V1_RateLimitingSampler)
 
   #if !swift(>=4.1)
-    static func ==(lhs: Opentelemetry_Proto_Trace_V1_TraceConfig.OneOf_Sampler, rhs: Opentelemetry_Proto_Trace_V1_TraceConfig.OneOf_Sampler) -> Bool {
+    public static func ==(lhs: Opentelemetry_Proto_Trace_V1_TraceConfig.OneOf_Sampler, rhs: Opentelemetry_Proto_Trace_V1_TraceConfig.OneOf_Sampler) -> Bool {
       switch (lhs, rhs) {
       case (.constantSampler(let l), .constantSampler(let r)): return l == r
       case (.probabilitySampler(let l), .probabilitySampler(let r)): return l == r
@@ -102,35 +102,35 @@ struct Opentelemetry_Proto_Trace_V1_TraceConfig {
   #endif
   }
 
-  init() {}
+  public init() {}
 }
 
 /// Sampler that always makes a constant decision on span sampling.
-struct Opentelemetry_Proto_Trace_V1_ConstantSampler {
+public struct Opentelemetry_Proto_Trace_V1_ConstantSampler {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var decision: Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision = .alwaysOff
+  public var decision: Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision = .alwaysOff
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// How spans should be sampled:
   /// - Always off
   /// - Always on
   /// - Always follow the parent Span's decision (off if no parent).
-  enum ConstantDecision: SwiftProtobuf.Enum {
-    typealias RawValue = Int
+  public enum ConstantDecision: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
     case alwaysOff // = 0
     case alwaysOn // = 1
     case alwaysParent // = 2
     case UNRECOGNIZED(Int)
 
-    init() {
+    public init() {
       self = .alwaysOff
     }
 
-    init?(rawValue: Int) {
+    public init?(rawValue: Int) {
       switch rawValue {
       case 0: self = .alwaysOff
       case 1: self = .alwaysOn
@@ -139,7 +139,7 @@ struct Opentelemetry_Proto_Trace_V1_ConstantSampler {
       }
     }
 
-    var rawValue: Int {
+    public var rawValue: Int {
       switch self {
       case .alwaysOff: return 0
       case .alwaysOn: return 1
@@ -150,14 +150,14 @@ struct Opentelemetry_Proto_Trace_V1_ConstantSampler {
 
   }
 
-  init() {}
+  public init() {}
 }
 
 #if swift(>=4.2)
 
 extension Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision] = [
+  public static var allCases: [Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision] = [
     .alwaysOff,
     .alwaysOn,
     .alwaysParent,
@@ -168,31 +168,31 @@ extension Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision: CaseIte
 
 /// Sampler that tries to uniformly sample traces with a given probability.
 /// The probability of sampling a trace is equal to that of the specified probability.
-struct Opentelemetry_Proto_Trace_V1_ProbabilitySampler {
+public struct Opentelemetry_Proto_Trace_V1_ProbabilitySampler {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The desired probability of sampling. Must be within [0.0, 1.0].
-  var samplingProbability: Double = 0
+  public var samplingProbability: Double = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// Sampler that tries to sample with a rate per time window.
-struct Opentelemetry_Proto_Trace_V1_RateLimitingSampler {
+public struct Opentelemetry_Proto_Trace_V1_RateLimitingSampler {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Rate per second.
-  var qps: Int64 = 0
+  public var qps: Int64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -200,8 +200,8 @@ struct Opentelemetry_Proto_Trace_V1_RateLimitingSampler {
 fileprivate let _protobuf_package = "opentelemetry.proto.trace.v1"
 
 extension Opentelemetry_Proto_Trace_V1_TraceConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TraceConfig"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".TraceConfig"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "constant_sampler"),
     2: .standard(proto: "probability_sampler"),
     3: .standard(proto: "rate_limiting_sampler"),
@@ -212,7 +212,7 @@ extension Opentelemetry_Proto_Trace_V1_TraceConfig: SwiftProtobuf.Message, Swift
     8: .standard(proto: "max_number_of_attributes_per_link"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1:
@@ -249,7 +249,7 @@ extension Opentelemetry_Proto_Trace_V1_TraceConfig: SwiftProtobuf.Message, Swift
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     switch self.sampler {
     case .constantSampler(let v)?:
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
@@ -277,7 +277,7 @@ extension Opentelemetry_Proto_Trace_V1_TraceConfig: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Trace_V1_TraceConfig, rhs: Opentelemetry_Proto_Trace_V1_TraceConfig) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Trace_V1_TraceConfig, rhs: Opentelemetry_Proto_Trace_V1_TraceConfig) -> Bool {
     if lhs.sampler != rhs.sampler {return false}
     if lhs.maxNumberOfAttributes != rhs.maxNumberOfAttributes {return false}
     if lhs.maxNumberOfTimedEvents != rhs.maxNumberOfTimedEvents {return false}
@@ -290,12 +290,12 @@ extension Opentelemetry_Proto_Trace_V1_TraceConfig: SwiftProtobuf.Message, Swift
 }
 
 extension Opentelemetry_Proto_Trace_V1_ConstantSampler: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ConstantSampler"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".ConstantSampler"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "decision"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularEnumField(value: &self.decision)
@@ -304,14 +304,14 @@ extension Opentelemetry_Proto_Trace_V1_ConstantSampler: SwiftProtobuf.Message, S
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.decision != .alwaysOff {
       try visitor.visitSingularEnumField(value: self.decision, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Trace_V1_ConstantSampler, rhs: Opentelemetry_Proto_Trace_V1_ConstantSampler) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Trace_V1_ConstantSampler, rhs: Opentelemetry_Proto_Trace_V1_ConstantSampler) -> Bool {
     if lhs.decision != rhs.decision {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -319,7 +319,7 @@ extension Opentelemetry_Proto_Trace_V1_ConstantSampler: SwiftProtobuf.Message, S
 }
 
 extension Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "ALWAYS_OFF"),
     1: .same(proto: "ALWAYS_ON"),
     2: .same(proto: "ALWAYS_PARENT"),
@@ -327,12 +327,12 @@ extension Opentelemetry_Proto_Trace_V1_ConstantSampler.ConstantDecision: SwiftPr
 }
 
 extension Opentelemetry_Proto_Trace_V1_ProbabilitySampler: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ProbabilitySampler"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".ProbabilitySampler"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "samplingProbability"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularDoubleField(value: &self.samplingProbability)
@@ -341,14 +341,14 @@ extension Opentelemetry_Proto_Trace_V1_ProbabilitySampler: SwiftProtobuf.Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.samplingProbability != 0 {
       try visitor.visitSingularDoubleField(value: self.samplingProbability, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Trace_V1_ProbabilitySampler, rhs: Opentelemetry_Proto_Trace_V1_ProbabilitySampler) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Trace_V1_ProbabilitySampler, rhs: Opentelemetry_Proto_Trace_V1_ProbabilitySampler) -> Bool {
     if lhs.samplingProbability != rhs.samplingProbability {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -356,12 +356,12 @@ extension Opentelemetry_Proto_Trace_V1_ProbabilitySampler: SwiftProtobuf.Message
 }
 
 extension Opentelemetry_Proto_Trace_V1_RateLimitingSampler: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".RateLimitingSampler"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".RateLimitingSampler"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "qps"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularInt64Field(value: &self.qps)
@@ -370,14 +370,14 @@ extension Opentelemetry_Proto_Trace_V1_RateLimitingSampler: SwiftProtobuf.Messag
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.qps != 0 {
       try visitor.visitSingularInt64Field(value: self.qps, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Trace_V1_RateLimitingSampler, rhs: Opentelemetry_Proto_Trace_V1_RateLimitingSampler) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Trace_V1_RateLimitingSampler, rhs: Opentelemetry_Proto_Trace_V1_RateLimitingSampler) -> Bool {
     if lhs.qps != rhs.qps {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

@@ -34,55 +34,55 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// A collection of InstrumentationLibraryMetrics from a Resource.
-struct Opentelemetry_Proto_Metrics_V1_ResourceMetrics {
+public struct Opentelemetry_Proto_Metrics_V1_ResourceMetrics {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The resource for the metrics in this message.
   /// If this field is not set then no resource info is known.
-  var resource: Opentelemetry_Proto_Resource_V1_Resource {
+  public var resource: Opentelemetry_Proto_Resource_V1_Resource {
     get {return _resource ?? Opentelemetry_Proto_Resource_V1_Resource()}
     set {_resource = newValue}
   }
   /// Returns true if `resource` has been explicitly set.
-  var hasResource: Bool {return self._resource != nil}
+  public var hasResource: Bool {return self._resource != nil}
   /// Clears the value of `resource`. Subsequent reads from it will return its default value.
-  mutating func clearResource() {self._resource = nil}
+  public mutating func clearResource() {self._resource = nil}
 
   /// A list of metrics that originate from a resource.
-  var instrumentationLibraryMetrics: [Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics] = []
+  public var instrumentationLibraryMetrics: [Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   fileprivate var _resource: Opentelemetry_Proto_Resource_V1_Resource? = nil
 }
 
 /// A collection of Metrics produced by an InstrumentationLibrary.
-struct Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics {
+public struct Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The instrumentation library information for the metrics in this message.
   /// If this field is not set then no library info is known.
-  var instrumentationLibrary: Opentelemetry_Proto_Common_V1_InstrumentationLibrary {
+  public var instrumentationLibrary: Opentelemetry_Proto_Common_V1_InstrumentationLibrary {
     get {return _instrumentationLibrary ?? Opentelemetry_Proto_Common_V1_InstrumentationLibrary()}
     set {_instrumentationLibrary = newValue}
   }
   /// Returns true if `instrumentationLibrary` has been explicitly set.
-  var hasInstrumentationLibrary: Bool {return self._instrumentationLibrary != nil}
+  public var hasInstrumentationLibrary: Bool {return self._instrumentationLibrary != nil}
   /// Clears the value of `instrumentationLibrary`. Subsequent reads from it will return its default value.
-  mutating func clearInstrumentationLibrary() {self._instrumentationLibrary = nil}
+  public mutating func clearInstrumentationLibrary() {self._instrumentationLibrary = nil}
 
   /// A list of metrics that originate from an instrumentation library.
-  var metrics: [Opentelemetry_Proto_Metrics_V1_Metric] = []
+  public var metrics: [Opentelemetry_Proto_Metrics_V1_Metric] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   fileprivate var _instrumentationLibrary: Opentelemetry_Proto_Common_V1_InstrumentationLibrary? = nil
 }
@@ -136,62 +136,62 @@ struct Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics {
 /// DataPoint is strongly typed: each DataPoint type has a specific Protobuf message
 /// depending on the value type of the metric and thus there are currently 4 DataPoint
 /// messages, which correspond to the types of metric values.
-struct Opentelemetry_Proto_Metrics_V1_Metric {
+public struct Opentelemetry_Proto_Metrics_V1_Metric {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// metric_descriptor describes the Metric.
-  var metricDescriptor: Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
+  public var metricDescriptor: Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
     get {return _metricDescriptor ?? Opentelemetry_Proto_Metrics_V1_MetricDescriptor()}
     set {_metricDescriptor = newValue}
   }
   /// Returns true if `metricDescriptor` has been explicitly set.
-  var hasMetricDescriptor: Bool {return self._metricDescriptor != nil}
+  public var hasMetricDescriptor: Bool {return self._metricDescriptor != nil}
   /// Clears the value of `metricDescriptor`. Subsequent reads from it will return its default value.
-  mutating func clearMetricDescriptor() {self._metricDescriptor = nil}
+  public mutating func clearMetricDescriptor() {self._metricDescriptor = nil}
 
   /// Data is a list of one or more DataPoints for a single metric. Only one of the
   /// following fields is used for the data, depending on the type of the metric defined
   /// by MetricDescriptor.type field.
-  var int64DataPoints: [Opentelemetry_Proto_Metrics_V1_Int64DataPoint] = []
+  public var int64DataPoints: [Opentelemetry_Proto_Metrics_V1_Int64DataPoint] = []
 
-  var doubleDataPoints: [Opentelemetry_Proto_Metrics_V1_DoubleDataPoint] = []
+  public var doubleDataPoints: [Opentelemetry_Proto_Metrics_V1_DoubleDataPoint] = []
 
-  var histogramDataPoints: [Opentelemetry_Proto_Metrics_V1_HistogramDataPoint] = []
+  public var histogramDataPoints: [Opentelemetry_Proto_Metrics_V1_HistogramDataPoint] = []
 
-  var summaryDataPoints: [Opentelemetry_Proto_Metrics_V1_SummaryDataPoint] = []
+  public var summaryDataPoints: [Opentelemetry_Proto_Metrics_V1_SummaryDataPoint] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   fileprivate var _metricDescriptor: Opentelemetry_Proto_Metrics_V1_MetricDescriptor? = nil
 }
 
 /// Defines a metric type and its schema.
-struct Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
+public struct Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// name of the metric, including its DNS name prefix. It must be unique.
-  var name: String = String()
+  public var name: String = String()
 
   /// description of the metric, which can be used in documentation.
-  var description_p: String = String()
+  public var description_p: String = String()
 
   /// unit in which the metric value is reported. Follows the format
   /// described by http://unitsofmeasure.org/ucum.html.
-  var unit: String = String()
+  public var unit: String = String()
 
-  var type: Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum = .unspecified
+  public var type: Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum = .unspecified
 
   /// The set of labels associated with the metric descriptor. Labels in this list apply to
   /// all data points.
-  var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
+  public var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Type of the metric. It describes how the data is reported.
   ///
@@ -201,8 +201,8 @@ struct Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
   /// interval. In a time series, cumulative measurements should have the same
   /// start time, increasing values, until an event resets the cumulative value
   /// to zero and sets a new start time for the subsequent points.
-  enum TypeEnum: SwiftProtobuf.Enum {
-    typealias RawValue = Int
+  public enum TypeEnum: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
 
     /// Do not use this default value.
     case unspecified // = 0
@@ -248,11 +248,11 @@ struct Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
     case summary // = 7
     case UNRECOGNIZED(Int)
 
-    init() {
+    public init() {
       self = .unspecified
     }
 
-    init?(rawValue: Int) {
+    public init?(rawValue: Int) {
       switch rawValue {
       case 0: self = .unspecified
       case 1: self = .gaugeInt64
@@ -266,7 +266,7 @@ struct Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
       }
     }
 
-    var rawValue: Int {
+    public var rawValue: Int {
       switch self {
       case .unspecified: return 0
       case .gaugeInt64: return 1
@@ -282,14 +282,14 @@ struct Opentelemetry_Proto_Metrics_V1_MetricDescriptor {
 
   }
 
-  init() {}
+  public init() {}
 }
 
 #if swift(>=4.2)
 
 extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum] = [
+  public static var allCases: [Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum] = [
     .unspecified,
     .gaugeInt64,
     .gaugeDouble,
@@ -305,13 +305,13 @@ extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum: CaseIterable
 
 /// Int64DataPoint is a single data point in a timeseries that describes the time-varying
 /// values of a int64 metric.
-struct Opentelemetry_Proto_Metrics_V1_Int64DataPoint {
+public struct Opentelemetry_Proto_Metrics_V1_Int64DataPoint {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The set of labels that uniquely identify this timeseries.
-  var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
+  public var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
 
   /// start_time_unix_nano is the time when the cumulative value was reset to zero.
   /// This is used for Counter type only. For Gauge the value is not specified and
@@ -322,29 +322,29 @@ struct Opentelemetry_Proto_Metrics_V1_Int64DataPoint {
   ///
   /// Value of 0 indicates that the timestamp is unspecified. In that case the timestamp
   /// may be decided by the backend.
-  var startTimeUnixNano: UInt64 = 0
+  public var startTimeUnixNano: UInt64 = 0
 
   /// time_unix_nano is the moment when this value was recorded.
   /// Value is UNIX Epoch time in nanoseconds since 00:00:00 UTC on 1 January 1970.
-  var timeUnixNano: UInt64 = 0
+  public var timeUnixNano: UInt64 = 0
 
   /// value itself.
-  var value: Int64 = 0
+  public var value: Int64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// DoubleDataPoint is a single data point in a timeseries that describes the time-varying
 /// value of a double metric.
-struct Opentelemetry_Proto_Metrics_V1_DoubleDataPoint {
+public struct Opentelemetry_Proto_Metrics_V1_DoubleDataPoint {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The set of labels that uniquely identify this timeseries.
-  var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
+  public var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
 
   /// start_time_unix_nano is the time when the cumulative value was reset to zero.
   /// This is used for Counter type only. For Gauge the value is not specified and
@@ -355,30 +355,30 @@ struct Opentelemetry_Proto_Metrics_V1_DoubleDataPoint {
   ///
   /// Value of 0 indicates that the timestamp is unspecified. In that case the timestamp
   /// may be decided by the backend.
-  var startTimeUnixNano: UInt64 = 0
+  public var startTimeUnixNano: UInt64 = 0
 
   /// time_unix_nano is the moment when this value was recorded.
   /// Value is UNIX Epoch time in nanoseconds since 00:00:00 UTC on 1 January 1970.
-  var timeUnixNano: UInt64 = 0
+  public var timeUnixNano: UInt64 = 0
 
   /// value itself.
-  var value: Double = 0
+  public var value: Double = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// HistogramDataPoint is a single data point in a timeseries that describes the time-varying
 /// values of a Histogram. A Histogram contains summary statistics for a population of values,
 /// it may optionally contain the distribution of those values across a set of buckets.
-struct Opentelemetry_Proto_Metrics_V1_HistogramDataPoint {
+public struct Opentelemetry_Proto_Metrics_V1_HistogramDataPoint {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The set of labels that uniquely identify this timeseries.
-  var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
+  public var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
 
   /// start_time_unix_nano is the time when the cumulative value was reset to zero.
   ///
@@ -388,20 +388,20 @@ struct Opentelemetry_Proto_Metrics_V1_HistogramDataPoint {
   /// Value of 0 indicates that the timestamp is unspecified. In that case the timestamp
   /// may be decided by the backend.
   /// Note: this field is always unspecified and ignored if MetricDescriptor.type==GAUGE_HISTOGRAM.
-  var startTimeUnixNano: UInt64 = 0
+  public var startTimeUnixNano: UInt64 = 0
 
   /// time_unix_nano is the moment when this value was recorded.
   /// Value is UNIX Epoch time in nanoseconds since 00:00:00 UTC on 1 January 1970.
-  var timeUnixNano: UInt64 = 0
+  public var timeUnixNano: UInt64 = 0
 
   /// count is the number of values in the population. Must be non-negative. This value
   /// must be equal to the sum of the "count" fields in buckets if a histogram is provided.
-  var count: UInt64 = 0
+  public var count: UInt64 = 0
 
   /// sum of the values in the population. If count is zero then this field
   /// must be zero. This value must be equal to the sum of the "sum" fields in buckets if
   /// a histogram is provided.
-  var sum: Double = 0
+  public var sum: Double = 0
 
   /// buckets is an optional field contains the values of histogram for each bucket.
   ///
@@ -413,7 +413,7 @@ struct Opentelemetry_Proto_Metrics_V1_HistogramDataPoint {
   /// Note: if HistogramDataPoint.bucket_options defines bucket bounds then this field
   /// must also be present and number of elements in this field must be equal to the
   /// number of buckets defined by bucket_options.
-  var buckets: [Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket] = []
+  public var buckets: [Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket] = []
 
   /// explicit_bounds specifies buckets with explicitly defined bounds for values.
   /// The bucket boundaries are described by "bounds" field.
@@ -429,36 +429,36 @@ struct Opentelemetry_Proto_Metrics_V1_HistogramDataPoint {
   /// Note: only [a, b) intervals are currently supported for each bucket. If we decides
   /// to also support (a, b] intervals we should add support for these by defining a boolean
   /// value which decides what type of intervals to use.
-  var explicitBounds: [Double] = []
+  public var explicitBounds: [Double] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Bucket contains values for a bucket.
-  struct Bucket {
+  public struct Bucket {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     /// The number of values in each bucket of the histogram, as described by
     /// bucket_options.
-    var count: UInt64 = 0
+    public var count: UInt64 = 0
 
     /// exemplar is an optional representative value of the bucket.
-    var exemplar: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar {
+    public var exemplar: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar {
       get {return _exemplar ?? Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar()}
       set {_exemplar = newValue}
     }
     /// Returns true if `exemplar` has been explicitly set.
-    var hasExemplar: Bool {return self._exemplar != nil}
+    public var hasExemplar: Bool {return self._exemplar != nil}
     /// Clears the value of `exemplar`. Subsequent reads from it will return its default value.
-    mutating func clearExemplar() {self._exemplar = nil}
+    public mutating func clearExemplar() {self._exemplar = nil}
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     /// Exemplars are example points that may be used to annotate aggregated
     /// Histogram values. They are metadata that gives information about a
     /// particular value added to a Histogram bucket.
-    struct Exemplar {
+    public struct Exemplar {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -466,38 +466,38 @@ struct Opentelemetry_Proto_Metrics_V1_HistogramDataPoint {
       /// Value of the exemplar point. It determines which bucket the exemplar belongs to.
       /// If bucket_options define bounds for this bucket then this value must be within
       /// the defined bounds.
-      var value: Double = 0
+      public var value: Double = 0
 
       /// time_unix_nano is the moment when this exemplar was recorded.
       /// Value is UNIX Epoch time in nanoseconds since 00:00:00 UTC on 1 January 1970.
-      var timeUnixNano: UInt64 = 0
+      public var timeUnixNano: UInt64 = 0
 
       /// exemplar_attachments are contextual information about the example value.
       /// Keys in this list must be unique.
-      var attachments: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
+      public var attachments: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
 
-      var unknownFields = SwiftProtobuf.UnknownStorage()
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      init() {}
+      public init() {}
     }
 
-    init() {}
+    public init() {}
 
     fileprivate var _exemplar: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar? = nil
   }
 
-  init() {}
+  public init() {}
 }
 
 /// SummaryDataPoint is a single data point in a timeseries that describes the time-varying
 /// values of a Summary metric.
-struct Opentelemetry_Proto_Metrics_V1_SummaryDataPoint {
+public struct Opentelemetry_Proto_Metrics_V1_SummaryDataPoint {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The set of labels that uniquely identify this timeseries.
-  var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
+  public var labels: [Opentelemetry_Proto_Common_V1_StringKeyValue] = []
 
   /// start_time_unix_nano is the time when the cumulative value was reset to zero.
   ///
@@ -506,25 +506,25 @@ struct Opentelemetry_Proto_Metrics_V1_SummaryDataPoint {
   ///
   /// Value of 0 indicates that the timestamp is unspecified. In that case the timestamp
   /// may be decided by the backend.
-  var startTimeUnixNano: UInt64 = 0
+  public var startTimeUnixNano: UInt64 = 0
 
   /// time_unix_nano is the moment when this value was recorded.
   /// Value is UNIX Epoch time in nanoseconds since 00:00:00 UTC on 1 January 1970.
-  var timeUnixNano: UInt64 = 0
+  public var timeUnixNano: UInt64 = 0
 
   /// The total number of recorded values since start_time. Optional since
   /// some systems don't expose this.
-  var count: UInt64 = 0
+  public var count: UInt64 = 0
 
   /// The total sum of recorded values since start_time. Optional since some
   /// systems don't expose this. If count is zero then this field must be zero.
-  var sum: Double = 0
+  public var sum: Double = 0
 
   /// A list of values at different percentiles of the distribution calculated
   /// from the current snapshot. The percentiles must be strictly increasing.
-  var percentileValues: [Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile] = []
+  public var percentileValues: [Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Represents the value at a given percentile of a distribution.
   ///
@@ -534,24 +534,24 @@ struct Opentelemetry_Proto_Metrics_V1_SummaryDataPoint {
   ///
   /// See the following issue for more context:
   /// https://github.com/open-telemetry/opentelemetry-proto/issues/125
-  struct ValueAtPercentile {
+  public struct ValueAtPercentile {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     /// The percentile of a distribution. Must be in the interval
     /// [0.0, 100.0].
-    var percentile: Double = 0
+    public var percentile: Double = 0
 
     /// The value at the given percentile of a distribution.
-    var value: Double = 0
+    public var value: Double = 0
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -559,13 +559,13 @@ struct Opentelemetry_Proto_Metrics_V1_SummaryDataPoint {
 fileprivate let _protobuf_package = "opentelemetry.proto.metrics.v1"
 
 extension Opentelemetry_Proto_Metrics_V1_ResourceMetrics: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ResourceMetrics"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".ResourceMetrics"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "resource"),
     2: .standard(proto: "instrumentation_library_metrics"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularMessageField(value: &self._resource)
@@ -575,7 +575,7 @@ extension Opentelemetry_Proto_Metrics_V1_ResourceMetrics: SwiftProtobuf.Message,
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._resource {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
@@ -585,7 +585,7 @@ extension Opentelemetry_Proto_Metrics_V1_ResourceMetrics: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_ResourceMetrics, rhs: Opentelemetry_Proto_Metrics_V1_ResourceMetrics) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_ResourceMetrics, rhs: Opentelemetry_Proto_Metrics_V1_ResourceMetrics) -> Bool {
     if lhs._resource != rhs._resource {return false}
     if lhs.instrumentationLibraryMetrics != rhs.instrumentationLibraryMetrics {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -594,13 +594,13 @@ extension Opentelemetry_Proto_Metrics_V1_ResourceMetrics: SwiftProtobuf.Message,
 }
 
 extension Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".InstrumentationLibraryMetrics"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".InstrumentationLibraryMetrics"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "instrumentation_library"),
     2: .same(proto: "metrics"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularMessageField(value: &self._instrumentationLibrary)
@@ -610,7 +610,7 @@ extension Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics: SwiftPro
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._instrumentationLibrary {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
@@ -620,7 +620,7 @@ extension Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics: SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics, rhs: Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics, rhs: Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics) -> Bool {
     if lhs._instrumentationLibrary != rhs._instrumentationLibrary {return false}
     if lhs.metrics != rhs.metrics {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -629,8 +629,8 @@ extension Opentelemetry_Proto_Metrics_V1_InstrumentationLibraryMetrics: SwiftPro
 }
 
 extension Opentelemetry_Proto_Metrics_V1_Metric: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Metric"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".Metric"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "metric_descriptor"),
     2: .standard(proto: "int64_data_points"),
     3: .standard(proto: "double_data_points"),
@@ -638,7 +638,7 @@ extension Opentelemetry_Proto_Metrics_V1_Metric: SwiftProtobuf.Message, SwiftPro
     5: .standard(proto: "summary_data_points"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularMessageField(value: &self._metricDescriptor)
@@ -651,7 +651,7 @@ extension Opentelemetry_Proto_Metrics_V1_Metric: SwiftProtobuf.Message, SwiftPro
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if let v = self._metricDescriptor {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
@@ -670,7 +670,7 @@ extension Opentelemetry_Proto_Metrics_V1_Metric: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_Metric, rhs: Opentelemetry_Proto_Metrics_V1_Metric) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_Metric, rhs: Opentelemetry_Proto_Metrics_V1_Metric) -> Bool {
     if lhs._metricDescriptor != rhs._metricDescriptor {return false}
     if lhs.int64DataPoints != rhs.int64DataPoints {return false}
     if lhs.doubleDataPoints != rhs.doubleDataPoints {return false}
@@ -682,8 +682,8 @@ extension Opentelemetry_Proto_Metrics_V1_Metric: SwiftProtobuf.Message, SwiftPro
 }
 
 extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".MetricDescriptor"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".MetricDescriptor"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "description"),
     3: .same(proto: "unit"),
@@ -691,7 +691,7 @@ extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor: SwiftProtobuf.Message
     5: .same(proto: "labels"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.name)
@@ -704,7 +704,7 @@ extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor: SwiftProtobuf.Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
     }
@@ -723,7 +723,7 @@ extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_MetricDescriptor, rhs: Opentelemetry_Proto_Metrics_V1_MetricDescriptor) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_MetricDescriptor, rhs: Opentelemetry_Proto_Metrics_V1_MetricDescriptor) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unit != rhs.unit {return false}
@@ -735,7 +735,7 @@ extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor: SwiftProtobuf.Message
 }
 
 extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNSPECIFIED"),
     1: .same(proto: "GAUGE_INT64"),
     2: .same(proto: "GAUGE_DOUBLE"),
@@ -748,15 +748,15 @@ extension Opentelemetry_Proto_Metrics_V1_MetricDescriptor.TypeEnum: SwiftProtobu
 }
 
 extension Opentelemetry_Proto_Metrics_V1_Int64DataPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Int64DataPoint"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".Int64DataPoint"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "labels"),
     2: .standard(proto: "start_time_unix_nano"),
     3: .standard(proto: "time_unix_nano"),
     4: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.labels)
@@ -768,7 +768,7 @@ extension Opentelemetry_Proto_Metrics_V1_Int64DataPoint: SwiftProtobuf.Message, 
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.labels.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.labels, fieldNumber: 1)
     }
@@ -784,7 +784,7 @@ extension Opentelemetry_Proto_Metrics_V1_Int64DataPoint: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_Int64DataPoint, rhs: Opentelemetry_Proto_Metrics_V1_Int64DataPoint) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_Int64DataPoint, rhs: Opentelemetry_Proto_Metrics_V1_Int64DataPoint) -> Bool {
     if lhs.labels != rhs.labels {return false}
     if lhs.startTimeUnixNano != rhs.startTimeUnixNano {return false}
     if lhs.timeUnixNano != rhs.timeUnixNano {return false}
@@ -795,15 +795,15 @@ extension Opentelemetry_Proto_Metrics_V1_Int64DataPoint: SwiftProtobuf.Message, 
 }
 
 extension Opentelemetry_Proto_Metrics_V1_DoubleDataPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".DoubleDataPoint"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".DoubleDataPoint"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "labels"),
     2: .standard(proto: "start_time_unix_nano"),
     3: .standard(proto: "time_unix_nano"),
     4: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.labels)
@@ -815,7 +815,7 @@ extension Opentelemetry_Proto_Metrics_V1_DoubleDataPoint: SwiftProtobuf.Message,
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.labels.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.labels, fieldNumber: 1)
     }
@@ -831,7 +831,7 @@ extension Opentelemetry_Proto_Metrics_V1_DoubleDataPoint: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_DoubleDataPoint, rhs: Opentelemetry_Proto_Metrics_V1_DoubleDataPoint) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_DoubleDataPoint, rhs: Opentelemetry_Proto_Metrics_V1_DoubleDataPoint) -> Bool {
     if lhs.labels != rhs.labels {return false}
     if lhs.startTimeUnixNano != rhs.startTimeUnixNano {return false}
     if lhs.timeUnixNano != rhs.timeUnixNano {return false}
@@ -842,8 +842,8 @@ extension Opentelemetry_Proto_Metrics_V1_DoubleDataPoint: SwiftProtobuf.Message,
 }
 
 extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".HistogramDataPoint"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".HistogramDataPoint"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "labels"),
     2: .standard(proto: "start_time_unix_nano"),
     3: .standard(proto: "time_unix_nano"),
@@ -853,7 +853,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint: SwiftProtobuf.Messa
     7: .standard(proto: "explicit_bounds"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.labels)
@@ -868,7 +868,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint: SwiftProtobuf.Messa
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.labels.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.labels, fieldNumber: 1)
     }
@@ -893,7 +893,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint, rhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint, rhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint) -> Bool {
     if lhs.labels != rhs.labels {return false}
     if lhs.startTimeUnixNano != rhs.startTimeUnixNano {return false}
     if lhs.timeUnixNano != rhs.timeUnixNano {return false}
@@ -907,13 +907,13 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint: SwiftProtobuf.Messa
 }
 
 extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.protoMessageName + ".Bucket"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.protoMessageName + ".Bucket"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "count"),
     2: .same(proto: "exemplar"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularUInt64Field(value: &self.count)
@@ -923,7 +923,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket: SwiftProtobu
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.count != 0 {
       try visitor.visitSingularUInt64Field(value: self.count, fieldNumber: 1)
     }
@@ -933,7 +933,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket, rhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket, rhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket) -> Bool {
     if lhs.count != rhs.count {return false}
     if lhs._exemplar != rhs._exemplar {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -942,14 +942,14 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket: SwiftProtobu
 }
 
 extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.protoMessageName + ".Exemplar"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.protoMessageName + ".Exemplar"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "value"),
     2: .standard(proto: "time_unix_nano"),
     3: .same(proto: "attachments"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularDoubleField(value: &self.value)
@@ -960,7 +960,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar: Swi
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.value != 0 {
       try visitor.visitSingularDoubleField(value: self.value, fieldNumber: 1)
     }
@@ -973,7 +973,7 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar: Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar, rhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar, rhs: Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.timeUnixNano != rhs.timeUnixNano {return false}
     if lhs.attachments != rhs.attachments {return false}
@@ -983,8 +983,8 @@ extension Opentelemetry_Proto_Metrics_V1_HistogramDataPoint.Bucket.Exemplar: Swi
 }
 
 extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SummaryDataPoint"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".SummaryDataPoint"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "labels"),
     2: .standard(proto: "start_time_unix_nano"),
     3: .standard(proto: "time_unix_nano"),
@@ -993,7 +993,7 @@ extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint: SwiftProtobuf.Message
     6: .standard(proto: "percentile_values"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.labels)
@@ -1007,7 +1007,7 @@ extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint: SwiftProtobuf.Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.labels.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.labels, fieldNumber: 1)
     }
@@ -1029,7 +1029,7 @@ extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint, rhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint, rhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint) -> Bool {
     if lhs.labels != rhs.labels {return false}
     if lhs.startTimeUnixNano != rhs.startTimeUnixNano {return false}
     if lhs.timeUnixNano != rhs.timeUnixNano {return false}
@@ -1042,13 +1042,13 @@ extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint: SwiftProtobuf.Message
 }
 
 extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.protoMessageName + ".ValueAtPercentile"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.protoMessageName + ".ValueAtPercentile"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "percentile"),
     2: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularDoubleField(value: &self.percentile)
@@ -1058,7 +1058,7 @@ extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile: Swi
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.percentile != 0 {
       try visitor.visitSingularDoubleField(value: self.percentile, fieldNumber: 1)
     }
@@ -1068,7 +1068,7 @@ extension Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile: Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile, rhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile, rhs: Opentelemetry_Proto_Metrics_V1_SummaryDataPoint.ValueAtPercentile) -> Bool {
     if lhs.percentile != rhs.percentile {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

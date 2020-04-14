@@ -35,41 +35,41 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 /// AttributeKeyValue is a key-value pair that is used to store Span attributes, Link
 /// attributes, etc.
-struct Opentelemetry_Proto_Common_V1_AttributeKeyValue {
+public struct Opentelemetry_Proto_Common_V1_AttributeKeyValue {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// key part of the key-value pair.
-  var key: String = String()
+  public var key: String = String()
 
   /// type of the value.
-  var type: Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType = .string
+  public var type: Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType = .string
 
-  var stringValue: String = String()
+  public var stringValue: String = String()
 
-  var intValue: Int64 = 0
+  public var intValue: Int64 = 0
 
-  var doubleValue: Double = 0
+  public var doubleValue: Double = 0
 
-  var boolValue: Bool = false
+  public var boolValue: Bool = false
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// ValueType is the enumeration of possible types that value can have.
-  enum ValueType: SwiftProtobuf.Enum {
-    typealias RawValue = Int
+  public enum ValueType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
     case string // = 0
     case int // = 1
     case double // = 2
     case bool // = 3
     case UNRECOGNIZED(Int)
 
-    init() {
+    public init() {
       self = .string
     }
 
-    init?(rawValue: Int) {
+    public init?(rawValue: Int) {
       switch rawValue {
       case 0: self = .string
       case 1: self = .int
@@ -79,7 +79,7 @@ struct Opentelemetry_Proto_Common_V1_AttributeKeyValue {
       }
     }
 
-    var rawValue: Int {
+    public var rawValue: Int {
       switch self {
       case .string: return 0
       case .int: return 1
@@ -91,14 +91,14 @@ struct Opentelemetry_Proto_Common_V1_AttributeKeyValue {
 
   }
 
-  init() {}
+  public init() {}
 }
 
 #if swift(>=4.2)
 
 extension Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType] = [
+  public static var allCases: [Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType] = [
     .string,
     .int,
     .double,
@@ -110,34 +110,34 @@ extension Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType: CaseIterabl
 
 /// StringKeyValue is a pair of key/value strings. This is the simpler (and faster) version
 /// of AttributeKeyValue that only supports string values.
-struct Opentelemetry_Proto_Common_V1_StringKeyValue {
+public struct Opentelemetry_Proto_Common_V1_StringKeyValue {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var key: String = String()
+  public var key: String = String()
 
-  var value: String = String()
+  public var value: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// InstrumentationLibrary is a message representing the instrumentation library information
 /// such as the fully qualified name and version. 
-struct Opentelemetry_Proto_Common_V1_InstrumentationLibrary {
+public struct Opentelemetry_Proto_Common_V1_InstrumentationLibrary {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var name: String = String()
+  public var name: String = String()
 
-  var version: String = String()
+  public var version: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -145,8 +145,8 @@ struct Opentelemetry_Proto_Common_V1_InstrumentationLibrary {
 fileprivate let _protobuf_package = "opentelemetry.proto.common.v1"
 
 extension Opentelemetry_Proto_Common_V1_AttributeKeyValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".AttributeKeyValue"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".AttributeKeyValue"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "key"),
     2: .same(proto: "type"),
     3: .standard(proto: "string_value"),
@@ -155,7 +155,7 @@ extension Opentelemetry_Proto_Common_V1_AttributeKeyValue: SwiftProtobuf.Message
     6: .standard(proto: "bool_value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.key)
@@ -169,7 +169,7 @@ extension Opentelemetry_Proto_Common_V1_AttributeKeyValue: SwiftProtobuf.Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
@@ -191,7 +191,7 @@ extension Opentelemetry_Proto_Common_V1_AttributeKeyValue: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Common_V1_AttributeKeyValue, rhs: Opentelemetry_Proto_Common_V1_AttributeKeyValue) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Common_V1_AttributeKeyValue, rhs: Opentelemetry_Proto_Common_V1_AttributeKeyValue) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs.type != rhs.type {return false}
     if lhs.stringValue != rhs.stringValue {return false}
@@ -204,7 +204,7 @@ extension Opentelemetry_Proto_Common_V1_AttributeKeyValue: SwiftProtobuf.Message
 }
 
 extension Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "STRING"),
     1: .same(proto: "INT"),
     2: .same(proto: "DOUBLE"),
@@ -213,13 +213,13 @@ extension Opentelemetry_Proto_Common_V1_AttributeKeyValue.ValueType: SwiftProtob
 }
 
 extension Opentelemetry_Proto_Common_V1_StringKeyValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".StringKeyValue"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".StringKeyValue"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "key"),
     2: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.key)
@@ -229,7 +229,7 @@ extension Opentelemetry_Proto_Common_V1_StringKeyValue: SwiftProtobuf.Message, S
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
@@ -239,7 +239,7 @@ extension Opentelemetry_Proto_Common_V1_StringKeyValue: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Common_V1_StringKeyValue, rhs: Opentelemetry_Proto_Common_V1_StringKeyValue) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Common_V1_StringKeyValue, rhs: Opentelemetry_Proto_Common_V1_StringKeyValue) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -248,13 +248,13 @@ extension Opentelemetry_Proto_Common_V1_StringKeyValue: SwiftProtobuf.Message, S
 }
 
 extension Opentelemetry_Proto_Common_V1_InstrumentationLibrary: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".InstrumentationLibrary"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".InstrumentationLibrary"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "version"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.name)
@@ -264,7 +264,7 @@ extension Opentelemetry_Proto_Common_V1_InstrumentationLibrary: SwiftProtobuf.Me
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
     }
@@ -274,7 +274,7 @@ extension Opentelemetry_Proto_Common_V1_InstrumentationLibrary: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Opentelemetry_Proto_Common_V1_InstrumentationLibrary, rhs: Opentelemetry_Proto_Common_V1_InstrumentationLibrary) -> Bool {
+  public static func ==(lhs: Opentelemetry_Proto_Common_V1_InstrumentationLibrary, rhs: Opentelemetry_Proto_Common_V1_InstrumentationLibrary) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.version != rhs.version {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
