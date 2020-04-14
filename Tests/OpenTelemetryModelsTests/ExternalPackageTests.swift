@@ -9,9 +9,10 @@ import OpenTelemetryModels
 import XCTest
 
 final class PackagingTests: XCTestCase {
-    func testManualTicks() {
-        let x = OpenTelemetryModels.Example()
-        //let trace = Opentelemetry_Proto_Trace_V1_Span()
-        // verifies the struct is visible externally - else this won't compile
+    func testExposedClasses() {
+        // verifies the struct is visible externally - otherwise this won't compile
+        let _ = Opentelemetry_Proto_Trace_V1_Span()
+        let _ = OpenTelemetryModels.Opentelemetry_Proto_Trace_V1_Status()
+        let _ = OpenTelemetryModels.Opentelemetry_Proto_Trace_V1_TraceConfig()
     }
 }
