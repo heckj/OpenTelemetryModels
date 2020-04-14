@@ -39,13 +39,13 @@ jobs:
     - name: env review
       run: env
 
-      #- name: Prepare Code Coverage
-      #run: xcrun llvm-cov export -format="lcov" .build/debug/SwiftVizPackageTests.xctest/Contents/MacOS/SwiftVizPackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
+    - name: Prepare Code Coverage
+      run: xcrun llvm-cov export -format="lcov" .build/debug/OpenTelemetryModelsPackageTests.xctest/Contents/MacOS/OpenTelemetryModelsPackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
 
-      #- name: Upload to CodeCov.io
-      #run: bash <(curl https://codecov.io/bash)
-      #env:
-      #CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    - name: Upload to CodeCov.io
+      run: bash <(curl https://codecov.io/bash)
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
           #- name: format and lint validation
           #run: swiftformat --lint . && swiftlint
