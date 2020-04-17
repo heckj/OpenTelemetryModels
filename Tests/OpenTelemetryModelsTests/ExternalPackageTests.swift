@@ -15,8 +15,6 @@ final class PackagingTests: XCTestCase {
         let _ = Opentelemetry_Proto_Trace_V1_Span()
         let _ = Opentelemetry_Proto_Trace_V1_Status()
         let _ = Opentelemetry_Proto_Trace_V1_TraceConfig()
-        let _ = Opentelemetry_Proto_Trace_V1_Span()
-        let _ = Opentelemetry_Proto_Trace_V1_Status()
         let _ = Opentelemetry_Proto_Trace_V1_ResourceSpans()
         let _ = Opentelemetry_Proto_Trace_V1_ConstantSampler()
         let _ = Opentelemetry_Proto_Trace_V1_ProbabilitySampler()
