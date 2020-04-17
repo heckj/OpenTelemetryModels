@@ -30,6 +30,14 @@ final class PackagingTests: XCTestCase {
 
         // in proto 0.3.0 - resource is alpha
         let _ = Opentelemetry_Proto_Metrics_V1_Metric()
-        
+    }
+    
+    func testExposedNicerNames() {
+        let _ = OpenTelemetry.Span()
+        let _ = OpenTelemetry.Status()
+        let _ = OpenTelemetry.StatusCode()
+        let _ = OpenTelemetry.Event()
+        let _ = OpenTelemetry.SpanLink()
+        let _ = OpenTelemetry.SpanKind()
     }
 }

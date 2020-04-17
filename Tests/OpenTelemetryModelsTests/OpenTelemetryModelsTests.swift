@@ -16,11 +16,11 @@ final class OpenTelemetryModelsTests: XCTestCase {
         // to be from a proper OpenTelemetryTracer - they're the raw models
         // that a tracer uses to encapsulate it's info.
         
-        var newStatus = Opentelemetry_Proto_Trace_V1_Status()
+        var newStatus = OpenTelemetry.Status()
         XCTAssertEqual(newStatus.message, "")
         XCTAssertEqual(newStatus.debugDescription, "OpenTelemetryModels.Opentelemetry_Proto_Trace_V1_Status:\n")
         XCTAssertTrue(newStatus.isInitialized)
-        XCTAssertEqual(newStatus.code, Opentelemetry_Proto_Trace_V1_Status.StatusCode.ok)
+        XCTAssertEqual(newStatus.code, OpenTelemetry.StatusCode.ok)
         
         // all proto models can be dumped into a JSON string
         XCTAssertEqual(try newStatus.jsonString(), "{}")
@@ -29,7 +29,7 @@ final class OpenTelemetryModelsTests: XCTestCase {
         print("textFormatString: ", newStatus.textFormatString())
         
         // add some values into the status
-        newStatus.code = Opentelemetry_Proto_Trace_V1_Status.StatusCode.notFound
+        newStatus.code = OpenTelemetry.StatusCode.notFound
         newStatus.message = "oopsie"
 
         let expectedJSONString = """
@@ -43,8 +43,8 @@ final class OpenTelemetryModelsTests: XCTestCase {
     }
     func testExperimentsWithTraceSpan() {
 
-        let newSpan = Opentelemetry_Proto_Trace_V1_Span()
-        XCTAssertEqual(newSpan.status.code, Opentelemetry_Proto_Trace_V1_Status.StatusCode.ok)
+        let newSpan = OpenTelemetry.Span()
+        XCTAssertEqual(newSpan.status.code, OpenTelemetry.StatusCode.ok)
         XCTAssertEqual(newSpan.attributes.count, 0)
         print("traceID: ", newSpan.traceID)
         print("spanID: ", newSpan.spanID)
