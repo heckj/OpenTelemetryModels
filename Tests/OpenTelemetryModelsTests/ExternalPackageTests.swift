@@ -15,8 +15,6 @@ final class PackagingTests: XCTestCase {
         let _ = Opentelemetry_Proto_Trace_V1_Span()
         let _ = Opentelemetry_Proto_Trace_V1_Status()
         let _ = Opentelemetry_Proto_Trace_V1_TraceConfig()
-        let _ = Opentelemetry_Proto_Trace_V1_Span()
-        let _ = Opentelemetry_Proto_Trace_V1_Status()
         let _ = Opentelemetry_Proto_Trace_V1_ResourceSpans()
         let _ = Opentelemetry_Proto_Trace_V1_ConstantSampler()
         let _ = Opentelemetry_Proto_Trace_V1_ProbabilitySampler()
@@ -32,6 +30,14 @@ final class PackagingTests: XCTestCase {
 
         // in proto 0.3.0 - resource is alpha
         let _ = Opentelemetry_Proto_Metrics_V1_Metric()
-        
+    }
+    
+    func testExposedNicerNames() {
+        let _ = OpenTelemetry.Span()
+        let _ = OpenTelemetry.Status()
+        let _ = OpenTelemetry.StatusCode()
+        let _ = OpenTelemetry.Event()
+        let _ = OpenTelemetry.SpanLink()
+        let _ = OpenTelemetry.SpanKind()
     }
 }
