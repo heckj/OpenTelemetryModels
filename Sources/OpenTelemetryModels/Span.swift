@@ -18,6 +18,7 @@ import Foundation
 var rng = SystemRandomNumberGenerator()
 
 public struct SpanID: Identifiable, Hashable, Comparable, CustomStringConvertible, CustomDebugStringConvertible {
+    public static let DataSize = 8
 
     // Comparable conformance
     public static func < (lhs: SpanID, rhs: SpanID) -> Bool {
@@ -49,12 +50,22 @@ public struct SpanID: Identifiable, Hashable, Comparable, CustomStringConvertibl
         id = withUnsafeBytes(of: &randomUInt64) { Data($0) }
     }
 
+    // failable initializer for creating an instance from raw Data buffer
+    public init?(from data: Data) {
+        if data.count == SpanID.DataSize && data != Data(count: SpanID.DataSize) {
+            id = data
+        } else {
+            return nil
+        }
+    }
+
     public func isValid() -> Bool {
-        id != Data(count: 8)
+        id != Data(count: SpanID.DataSize)
     }
 }
 
 public struct TraceID: Identifiable, Hashable, Comparable, CustomStringConvertible, CustomDebugStringConvertible {
+    public static let DataSize = 16
 
     // Comparable conformance
     public static func < (lhs: TraceID, rhs: TraceID) -> Bool {
@@ -71,7 +82,7 @@ public struct TraceID: Identifiable, Hashable, Comparable, CustomStringConvertib
     // CustomDebugStringConvertible conformance
     public var debugDescription: String {
            get {
-            return id.base64EncodedString()
+            return "TraceID: \(id.base64EncodedString())"
            }
        }
 
@@ -91,7 +102,144 @@ public struct TraceID: Identifiable, Hashable, Comparable, CustomStringConvertib
         id = data
     }
 
+    // failable initializer for creating an instance from raw Data buffer
+    public init?(from data: Data) {
+        if data.count == TraceID.DataSize && data != Data(count: TraceID.DataSize) {
+            id = data
+        } else {
+            return nil
+        }
+    }
+
     public func isValid() -> Bool {
-        id != Data(count: 16)
+        id != Data(count: TraceID.DataSize)
     }
 }
+
+public extension Date {
+    func timeUnixNano() -> UInt64 {
+        return UInt64(self.timeIntervalSince1970)
+    }
+}
+
+public extension Opentelemetry_Proto_Trace_V1_Status {
+    //public typealias Status = Opentelemetry_Proto_Trace_V1_Status
+
+    static func statusFromCode(code: Opentelemetry_Proto_Trace_V1_Status.StatusCode, message: String?) -> Opentelemetry_Proto_Trace_V1_Status {
+        var status = Opentelemetry_Proto_Trace_V1_Status()
+        status.code = code
+        if let message = message {
+            status.message = message
+        }
+        return status
+    }
+}
+
+public extension Opentelemetry_Proto_Trace_V1_Span {
+
+    // Convenience accessors
+
+    func startDate() -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(self.startTimeUnixNano))
+    }
+
+    func endDate() -> Date? {
+        // assume 0 means it was never set...
+        if (self.endTimeUnixNano == 0) {
+            return nil
+        }
+        // else convert to a Date() and hand back
+        return Date(timeIntervalSince1970: TimeInterval(self.startTimeUnixNano))
+    }
+
+    // Start and Finish
+
+    static func start(name: String,
+               fromParent: Opentelemetry_Proto_Trace_V1_Span?,
+               kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified,
+               start: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span {
+        var newSpan = Opentelemetry_Proto_Trace_V1_Span()
+        // newSpan.clearStatus()
+        if let parent = fromParent {
+            // replicate traceState from a parent
+            newSpan.traceState = parent.traceState
+            // replicate the traceID from the parent
+            newSpan.traceID = parent.traceID
+            // copy all attributes from the parent
+            newSpan.attributes = parent.attributes
+            // copy all links ? (not sure if this is actually correct)
+            newSpan.links = parent.links
+        } else {
+            newSpan.traceID = TraceID().id
+        }
+        newSpan.spanID = SpanID().id
+        newSpan.name = name
+        newSpan.startTimeUnixNano = start.timeUnixNano()
+        return newSpan
+    }
+
+    static func start(name: String,
+               kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified,
+               start: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span {
+        var newSpan = Opentelemetry_Proto_Trace_V1_Span()
+        newSpan.traceID = TraceID().id
+        newSpan.spanID = SpanID().id
+        newSpan.name = name
+        newSpan.startTimeUnixNano = start.timeUnixNano()
+        return newSpan
+    }
+
+    func createChildSpan(name: String) -> Opentelemetry_Proto_Trace_V1_Span {
+        Opentelemetry_Proto_Trace_V1_Span.start(name: name, fromParent: self)
+    }
+
+    mutating func finish(end: Date = Date(), withStatus: Opentelemetry_Proto_Trace_V1_Status?) {
+        self.endTimeUnixNano = end.timeUnixNano()
+        if let status = withStatus {
+            self.status = status
+        }
+    }
+
+    mutating func finish(end: Date = Date(), withStatusCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode?) {
+        self.endTimeUnixNano = end.timeUnixNano()
+        if let statusCode = withStatusCode {
+            var finalStatus = Opentelemetry_Proto_Trace_V1_Status()
+            finalStatus.code = statusCode
+            self.status = finalStatus
+        }
+    }
+
+    // Tag (attribute K/V pair) functions
+
+    mutating func setTag(tag: String, value: Double) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.doubleValue = value
+        self.attributes.append(newAttr)
+    }
+
+    mutating func setTag(tag: String, value: Bool) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.boolValue = value
+        self.attributes.append(newAttr)
+    }
+
+    mutating func setTag(tag: String, value: Int) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.intValue = Int64(value)
+        self.attributes.append(newAttr)
+    }
+
+    mutating func setTag(tag: String, value: String) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.stringValue = value
+        self.attributes.append(newAttr)
+    }
+
+    // TODO(heckj): add Event methods
+}
+
+
