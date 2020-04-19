@@ -17,13 +17,21 @@ import Foundation
 
 var rng = SystemRandomNumberGenerator()
 
-public struct SpanID: Identifiable, CustomStringConvertible, CustomDebugStringConvertible {
+public struct SpanID: Identifiable, Hashable, Comparable, CustomStringConvertible, CustomDebugStringConvertible {
+
+    // Comparable conformance
+    public static func < (lhs: SpanID, rhs: SpanID) -> Bool {
+        lhs.id.lexicographicallyPrecedes(rhs.id)
+    }
+
+    // CustomStringConvertible conformance
     public var description: String {
         get {
             return id.base64EncodedString()
         }
     }
 
+    // CustomDebugStringConvertible conformance
     public var debugDescription: String {
         get {
             return "SpanID: \(id.base64EncodedString())"
@@ -46,13 +54,21 @@ public struct SpanID: Identifiable, CustomStringConvertible, CustomDebugStringCo
     }
 }
 
-public struct TraceID: Identifiable, CustomStringConvertible, CustomDebugStringConvertible {
+public struct TraceID: Identifiable, Hashable, Comparable, CustomStringConvertible, CustomDebugStringConvertible {
+
+    // Comparable conformance
+    public static func < (lhs: TraceID, rhs: TraceID) -> Bool {
+        lhs.id.lexicographicallyPrecedes(rhs.id)
+    }
+
+    // CustomStringConvertible conformance
     public var description: String {
            get {
             return id.base64EncodedString()
            }
        }
 
+    // CustomDebugStringConvertible conformance
     public var debugDescription: String {
            get {
             return id.base64EncodedString()
