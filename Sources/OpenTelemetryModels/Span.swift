@@ -135,6 +135,15 @@ public extension Opentelemetry_Proto_Trace_V1_Status {
     }
 }
 
+public extension Opentelemetry_Proto_Trace_V1_Status {
+    static func status(_ message: String, withCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode) -> Opentelemetry_Proto_Trace_V1_Status {
+        var newstatus = Opentelemetry_Proto_Trace_V1_Status()
+        newstatus.message = message
+        newstatus.code = withCode
+        return newstatus
+    }
+}
+
 public extension Opentelemetry_Proto_Trace_V1_Span {
 
     // Convenience accessors
@@ -155,12 +164,12 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
     // Start and Finish
 
     static func start(name: String,
-               fromParent: Opentelemetry_Proto_Trace_V1_Span?,
+               fromParent: Opentelemetry_Proto_Trace_V1_Span? = nil,
                kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified,
                start: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span {
         var newSpan = Opentelemetry_Proto_Trace_V1_Span()
-        // newSpan.clearStatus()
         if let parent = fromParent {
+            newSpan.parentSpanID = parent.spanID
             // replicate traceState from a parent
             newSpan.traceState = parent.traceState
             // replicate the traceID from the parent
@@ -174,6 +183,7 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         }
         newSpan.spanID = SpanID().id
         newSpan.name = name
+        newSpan.kind = kind
         newSpan.startTimeUnixNano = start.timeUnixNano()
         return newSpan
     }
@@ -184,6 +194,7 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         var newSpan = Opentelemetry_Proto_Trace_V1_Span()
         newSpan.traceID = TraceID().id
         newSpan.spanID = SpanID().id
+        newSpan.kind = kind
         newSpan.name = name
         newSpan.startTimeUnixNano = start.timeUnixNano()
         return newSpan
@@ -193,20 +204,24 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         Opentelemetry_Proto_Trace_V1_Span.start(name: name, fromParent: self)
     }
 
-    mutating func finish(end: Date = Date(), withStatus: Opentelemetry_Proto_Trace_V1_Status?) {
+    mutating func finish(end: Date = Date()) {
         self.endTimeUnixNano = end.timeUnixNano()
-        if let status = withStatus {
-            self.status = status
-        }
+
+        var finalStatus = Opentelemetry_Proto_Trace_V1_Status()
+        finalStatus.code = Opentelemetry_Proto_Trace_V1_Status.StatusCode.ok
+        self.status = status
     }
 
-    mutating func finish(end: Date = Date(), withStatusCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode?) {
+    mutating func finish(end: Date = Date(), withStatus: Opentelemetry_Proto_Trace_V1_Status) {
         self.endTimeUnixNano = end.timeUnixNano()
-        if let statusCode = withStatusCode {
-            var finalStatus = Opentelemetry_Proto_Trace_V1_Status()
-            finalStatus.code = statusCode
-            self.status = finalStatus
-        }
+        self.status = withStatus
+    }
+
+    mutating func finish(end: Date = Date(), withStatusCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode) {
+        self.endTimeUnixNano = end.timeUnixNano()
+        var finalStatus = Opentelemetry_Proto_Trace_V1_Status()
+        finalStatus.code = withStatusCode
+        self.status = finalStatus
     }
 
     // Tag (attribute K/V pair) functions
