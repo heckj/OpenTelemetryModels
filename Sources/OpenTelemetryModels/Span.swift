@@ -145,6 +145,15 @@ public extension Opentelemetry_Proto_Trace_V1_Status {
 }
 
 public extension Opentelemetry_Proto_Trace_V1_Span {
+    static func newEvent(_ name: String, timestamp: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span.Event {
+        var event = Opentelemetry_Proto_Trace_V1_Span.Event()
+        event.name = name
+        event.timeUnixNano = timestamp.timeUnixNano()
+        return event
+    }
+}
+
+public extension Opentelemetry_Proto_Trace_V1_Span {
 
     // Convenience accessors
 
@@ -226,35 +235,40 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
 
     // Tag (attribute K/V pair) functions
 
-    mutating func setTag(tag: String, value: Double) {
+    mutating func addTag(tag: String, value: Double) {
         var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         newAttr.key = tag
         newAttr.doubleValue = value
         self.attributes.append(newAttr)
     }
 
-    mutating func setTag(tag: String, value: Bool) {
+    mutating func addTag(tag: String, value: Bool) {
         var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         newAttr.key = tag
         newAttr.boolValue = value
         self.attributes.append(newAttr)
     }
 
-    mutating func setTag(tag: String, value: Int) {
+    mutating func addTag(tag: String, value: Int) {
         var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         newAttr.key = tag
         newAttr.intValue = Int64(value)
         self.attributes.append(newAttr)
     }
 
-    mutating func setTag(tag: String, value: String) {
+    mutating func addTag(tag: String, value: String) {
         var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         newAttr.key = tag
         newAttr.stringValue = value
         self.attributes.append(newAttr)
     }
 
-    // TODO(heckj): add Event methods
+    // Event methods
+
+    mutating func addEvent(_ name: String, timestamp: Date = Date()) {
+        let evt = Self.newEvent(name, timestamp: timestamp)
+        self.events.append(evt)
+    }
 }
 
 

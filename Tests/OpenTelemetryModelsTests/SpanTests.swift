@@ -125,5 +125,39 @@ final class SpanTests: XCTestCase {
 
     // tags
 
+    func testSpan_setTag() {
+        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        XCTAssertEqual(span.name, "parent")
+        XCTAssertEqual(span.attributes.count, 0)
+
+        span.addTag(tag: "bool", value: true)
+        span.addTag(tag: "string", value: "string")
+        XCTAssertEqual(span.attributes.count, 2)
+        XCTAssertEqual(span.attributes[0].key, "bool")
+        XCTAssertEqual(span.attributes[1].key, "string")
+    }
+
+    func testSpan_tags_act_as_list() {
+        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        XCTAssertEqual(span.name, "parent")
+        XCTAssertEqual(span.attributes.count, 0)
+
+        span.addTag(tag: "foo", value: true)
+        span.addTag(tag: "foo", value: "string")
+        XCTAssertEqual(span.attributes.count, 2)
+        XCTAssertEqual(span.attributes[0].key, "foo")
+        XCTAssertEqual(span.attributes[1].key, "foo")
+    }
+
     // events
+
+    func testSpan_createEvent() {
+        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        XCTAssertEqual(span.name, "parent")
+        XCTAssertEqual(span.events.count, 0)
+        span.addEvent("newevent")
+        XCTAssertEqual(span.events.count, 1)
+        XCTAssertEqual(span.events[0].name, "newevent")
+    }
+
 }
