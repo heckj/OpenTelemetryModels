@@ -25,4 +25,8 @@ public enum OpenTelemetry {
 
     // enum:
     public typealias SpanKind = Opentelemetry_Proto_Trace_V1_Span.SpanKind
+
+    // obj:
+    public typealias Attribute = Opentelemetry_Proto_Common_V1_AttributeKeyValue
+
 }
