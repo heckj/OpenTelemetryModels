@@ -153,6 +153,43 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
     }
 }
 
+public extension Opentelemetry_Proto_Common_V1_AttributeKeyValue {
+    //public typealias Status = Opentelemetry_Proto_Trace_V1_Status
+
+    static func newAttribute(key: String, value: String) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
+        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        attr.key = key
+        attr.stringValue = value
+        attr.type = .string
+        return attr
+    }
+
+    static func newAttribute(key: String, value: Bool) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
+        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        attr.key = key
+        attr.boolValue = value
+        attr.type = .bool
+        return attr
+    }
+
+    static func newAttribute(key: String, value: Double) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
+        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        attr.key = key
+        attr.doubleValue = value
+        attr.type = .double
+        return attr
+    }
+
+    static func newAttribute(key: String, value: Int) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
+        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        attr.key = key
+        attr.intValue = Int64(value)
+        attr.type = .int
+        return attr
+    }
+
+}
+
 public extension Opentelemetry_Proto_Trace_V1_Span {
 
     // Convenience accessors
@@ -233,7 +270,7 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         self.status = finalStatus
     }
 
-    // Tag (attribute K/V pair) functions
+    // Tag on a span (attribute K/V pair) functions
 
     mutating func addTag(tag: String, value: Double) {
         var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
@@ -271,4 +308,37 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
     }
 }
 
+extension Opentelemetry_Proto_Trace_V1_Span.Event {
+
+    // Tag on an event (attribute K/V pair) functions
+
+    mutating func addTag(tag: String, value: Double) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.doubleValue = value
+        self.attributes.append(newAttr)
+    }
+
+    mutating func addTag(tag: String, value: Bool) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.boolValue = value
+        self.attributes.append(newAttr)
+    }
+
+    mutating func addTag(tag: String, value: Int) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.intValue = Int64(value)
+        self.attributes.append(newAttr)
+    }
+
+    mutating func addTag(tag: String, value: String) {
+        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        newAttr.key = tag
+        newAttr.stringValue = value
+        self.attributes.append(newAttr)
+    }
+
+}
 

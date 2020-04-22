@@ -160,4 +160,30 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.events[0].name, "newevent")
     }
 
+    // event tags
+
+    func testEvent_createEvent() {
+        var evt = OpenTelemetry.Span.newEvent("newevent")
+        XCTAssertEqual(evt.name, "newevent")
+        XCTAssertEqual(evt.attributes.count, 0)
+
+        evt.addTag(tag: "bool", value: true)
+        evt.addTag(tag: "string", value: "string")
+        XCTAssertEqual(evt.attributes.count, 2)
+        XCTAssertEqual(evt.attributes[0].key, "bool")
+        XCTAssertEqual(evt.attributes[1].key, "string")
+    }
+
+    func testEvent_tags_act_as_list() {
+        var evt = OpenTelemetry.Span.newEvent("newevent")
+        XCTAssertEqual(evt.name, "newevent")
+        XCTAssertEqual(evt.attributes.count, 0)
+
+        evt.addTag(tag: "foo", value: true)
+        evt.addTag(tag: "foo", value: "string")
+        XCTAssertEqual(evt.attributes.count, 2)
+        XCTAssertEqual(evt.attributes[0].key, "foo")
+        XCTAssertEqual(evt.attributes[1].key, "foo")
+    }
+
 }
