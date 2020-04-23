@@ -30,6 +30,58 @@ final class SpanStatusTests: XCTestCase {
 
 final class SpanTests: XCTestCase {
 
+    func testSpan_default_initializer() {
+        let span = Opentelemetry_Proto_Trace_V1_Span()
+        XCTAssertNotNil(span)
+        XCTAssertEqual(span.spanID.count, 0)
+        XCTAssertEqual(span.traceID.count, 0)
+        XCTAssertEqual(span.name, "")
+        XCTAssertNotNil(span.startDate())
+        XCTAssertEqual(span.startTimeUnixNano, 0)
+        XCTAssertNil(span.endDate())
+        XCTAssertEqual(span.endTimeUnixNano, 0)
+        XCTAssertFalse(span.hasStatus)
+        XCTAssertEqual(span.kind, .unspecified)
+        XCTAssertEqual(span.events.count, 0)
+        XCTAssertEqual(span.attributes.count, 0)
+    }
+    
+    func testSpan_convenience_initializer() {
+        let span = Opentelemetry_Proto_Trace_V1_Span("mary")
+        XCTAssertEqual(span.spanID.count, 8)
+        XCTAssertEqual(span.traceID.count, 16)
+        XCTAssertNotNil(span)
+        XCTAssertEqual(span.name, "mary")
+        XCTAssertNotNil(span.startDate())
+        XCTAssertTrue(span.startTimeUnixNano > 0)
+        
+        XCTAssertNil(span.endDate())
+        XCTAssertEqual(span.endTimeUnixNano, 0)
+        XCTAssertFalse(span.hasStatus)
+        XCTAssertEqual(span.kind, .unspecified)
+        XCTAssertEqual(span.events.count, 0)
+        XCTAssertEqual(span.attributes.count, 0)
+    }
+    
+    // String conformances
+    
+    func testSpan_description() {
+        let span = Opentelemetry_Proto_Trace_V1_Span("mary")
+        let result = String(describing: span)
+        print(result)
+        XCTAssertTrue(result.starts(with: "Span(mary"))
+    }
+
+    func testSpan_debugDescription() {
+        let span = Opentelemetry_Proto_Trace_V1_Span("mary")
+        let result = String(reflecting: span)
+        print(result)
+        XCTAssertTrue(result.starts(with: "Span[mary"))
+        XCTAssertTrue(result.contains("SpanID"))
+        XCTAssertTrue(result.contains("TraceID"))
+        XCTAssertFalse(result.contains("???"))
+    }
+
     // start & finish
 
     func testSpan_start() {
