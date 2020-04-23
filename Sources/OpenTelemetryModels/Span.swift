@@ -15,107 +15,6 @@
 
 import Foundation
 
-var rng = SystemRandomNumberGenerator()
-
-public struct SpanID: Identifiable, Hashable, Comparable, CustomStringConvertible, CustomDebugStringConvertible {
-    public static let DataSize = 8
-
-    // Comparable conformance
-    public static func < (lhs: SpanID, rhs: SpanID) -> Bool {
-        lhs.id.lexicographicallyPrecedes(rhs.id)
-    }
-
-    // CustomStringConvertible conformance
-    public var description: String {
-        get {
-            return id.base64EncodedString()
-        }
-    }
-
-    // CustomDebugStringConvertible conformance
-    public var debugDescription: String {
-        get {
-            return "SpanID(\(id.hexEncodedString()))"
-        }
-    }
-
-    public let id: Data
-
-    public init() {
-        var randomUInt64 = rng.next()
-        // make sure we don't get an invalid ID
-        while (randomUInt64 == 0) {
-            randomUInt64 = rng.next()
-        }
-        id = withUnsafeBytes(of: &randomUInt64) { Data($0) }
-    }
-
-    // failable initializer for creating an instance from raw Data buffer
-    public init?(from data: Data) {
-        if data.count == SpanID.DataSize && data != Data(count: SpanID.DataSize) {
-            id = data
-        } else {
-            return nil
-        }
-    }
-
-    public func isValid() -> Bool {
-        id != Data(count: SpanID.DataSize)
-    }
-}
-
-public struct TraceID: Identifiable, Hashable, Comparable, CustomStringConvertible, CustomDebugStringConvertible {
-    public static let DataSize = 16
-
-    // Comparable conformance
-    public static func < (lhs: TraceID, rhs: TraceID) -> Bool {
-        lhs.id.lexicographicallyPrecedes(rhs.id)
-    }
-
-    // CustomStringConvertible conformance
-    public var description: String {
-           get {
-            return id.base64EncodedString()
-           }
-       }
-
-    // CustomDebugStringConvertible conformance
-    public var debugDescription: String {
-           get {
-            return "TraceID(\(id.hexEncodedString()))"
-           }
-       }
-
-    public let id: Data
-
-    public init() {
-        var randomUInt64 = rng.next()
-        // make sure we don't get an invalid ID
-        while (randomUInt64 == 0) {
-            randomUInt64 = rng.next()
-        }
-        var data = withUnsafeBytes(of: &randomUInt64) { Data($0) }
-        // add 8 more bytes to get to the required 16 byte length for a traceID
-        var moreRandomNumber = rng.next()
-        let moreData = withUnsafeBytes(of: &moreRandomNumber) { Data($0) }
-        data.append(moreData)
-        id = data
-    }
-
-    // failable initializer for creating an instance from raw Data buffer
-    public init?(from data: Data) {
-        if data.count == TraceID.DataSize && data != Data(count: TraceID.DataSize) {
-            id = data
-        } else {
-            return nil
-        }
-    }
-
-    public func isValid() -> Bool {
-        id != Data(count: TraceID.DataSize)
-    }
-}
-
 public extension Date {
     func timeUnixNano() -> UInt64 {
         return UInt64(self.timeIntervalSince1970)
@@ -125,6 +24,7 @@ public extension Date {
 public extension Opentelemetry_Proto_Trace_V1_Status {
     //public typealias Status = Opentelemetry_Proto_Trace_V1_Status
 
+    // TODO(heckj): convert to a convenience initializer
     static func statusFromCode(code: Opentelemetry_Proto_Trace_V1_Status.StatusCode, message: String?) -> Opentelemetry_Proto_Trace_V1_Status {
         var status = Opentelemetry_Proto_Trace_V1_Status()
         status.code = code
@@ -133,9 +33,8 @@ public extension Opentelemetry_Proto_Trace_V1_Status {
         }
         return status
     }
-}
-
-public extension Opentelemetry_Proto_Trace_V1_Status {
+    
+    // TODO(heckj): convert to a convenience initializer
     static func status(_ message: String, withCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode) -> Opentelemetry_Proto_Trace_V1_Status {
         var newstatus = Opentelemetry_Proto_Trace_V1_Status()
         newstatus.message = message
@@ -144,8 +43,8 @@ public extension Opentelemetry_Proto_Trace_V1_Status {
     }
 }
 
+
 public extension Opentelemetry_Proto_Trace_V1_Span {
-    
     init(_ name: String, start: Date = Date(), kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified) {
         self.traceID = TraceID().id
         self.spanID = SpanID().id
@@ -154,6 +53,7 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         self.startTimeUnixNano = start.timeUnixNano()
     }
     
+    // TODO(heckj): consider killing this off
     static func newEvent(_ name: String, timestamp: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span.Event {
         var event = Opentelemetry_Proto_Trace_V1_Span.Event()
         event.name = name
@@ -162,7 +62,7 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
     }
 }
 
-extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebugStringConvertible, CustomPlaygroundDisplayConvertible {
+extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         guard let id = SpanID(from: spanID) else {
             return "Span(\(name):???)"
@@ -179,15 +79,12 @@ extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebu
         }
         return "Span[\(name):\(String(reflecting: spanid)):\(String(reflecting: traceid))]"
     }
-
-    public var playgroundDescription: Any {
-        return "Span"
-    }
 }
 
 public extension Opentelemetry_Proto_Common_V1_AttributeKeyValue {
     //public typealias Status = Opentelemetry_Proto_Trace_V1_Status
 
+    // TODO(heckj): convert to a convenience initializer
     static func newAttribute(key: String, value: String) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         attr.key = key
@@ -196,6 +93,7 @@ public extension Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         return attr
     }
 
+    // TODO(heckj): convert to a convenience initializer
     static func newAttribute(key: String, value: Bool) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         attr.key = key
@@ -203,7 +101,8 @@ public extension Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         attr.type = .bool
         return attr
     }
-
+    
+    // TODO(heckj): convert to a convenience initializer
     static func newAttribute(key: String, value: Double) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         attr.key = key
@@ -212,6 +111,7 @@ public extension Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         return attr
     }
 
+    // TODO(heckj): convert to a convenience initializer
     static func newAttribute(key: String, value: Int) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
         var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
         attr.key = key
