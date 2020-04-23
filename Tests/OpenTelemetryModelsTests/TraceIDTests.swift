@@ -44,15 +44,15 @@ final class TraceIDTests: XCTestCase {
         // random ID, but we know it'll always be the same length
         let result = String(describing: x)
         XCTAssertEqual(result.count, 24)
-         print(result)
+        // print(result)
     }
 
     func testTraceID_debug_string() {
         let x = TraceID()
         // random ID, but we know it'll always be the same length
         let result = String(reflecting: x)
-        XCTAssertEqual(result.count, 33)
+        XCTAssertEqual(result.count, 41)
         // print(result)
-        XCTAssertTrue(result.starts(with: "TraceID: "))
+        XCTAssertTrue(result.starts(with: "TraceID("))
     }
 }

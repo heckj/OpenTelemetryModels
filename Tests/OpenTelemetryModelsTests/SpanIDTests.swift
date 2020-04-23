@@ -4,7 +4,6 @@
 //  Created by Joseph Heck on 4/19/20.
 //
 
-
 import XCTest
 @testable import OpenTelemetryModels
 
@@ -42,15 +41,17 @@ final class SpanIDTests: XCTestCase {
         // random ID, but we know it'll always be the same length
         let result = String(describing: x)
         XCTAssertEqual(result.count, 12)
-         print(result)
+        // print(result) = result is slightly more compact: a uuencoded string
     }
 
     func testSpanID_debug_string() {
         let x = SpanID()
         // random ID, but we know it'll always be the same length
         let result = String(reflecting: x)
-        XCTAssertEqual(result.count, 20)
+        XCTAssertEqual(result.count, 24)
         // print(result)
-        XCTAssertTrue(result.starts(with: "SpanID: "))
+        XCTAssertTrue(result.starts(with: "SpanID("))
+        // print(result) = result is more accurate: a hexencoded string
+
     }
 }

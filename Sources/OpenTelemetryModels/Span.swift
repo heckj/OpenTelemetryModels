@@ -35,7 +35,7 @@ public struct SpanID: Identifiable, Hashable, Comparable, CustomStringConvertibl
     // CustomDebugStringConvertible conformance
     public var debugDescription: String {
         get {
-            return "SpanID: \(id.base64EncodedString())"
+            return "SpanID(\(id.hexEncodedString()))"
         }
     }
 
@@ -82,7 +82,7 @@ public struct TraceID: Identifiable, Hashable, Comparable, CustomStringConvertib
     // CustomDebugStringConvertible conformance
     public var debugDescription: String {
            get {
-            return "TraceID: \(id.base64EncodedString())"
+            return "TraceID(\(id.hexEncodedString()))"
            }
        }
 
@@ -145,11 +145,43 @@ public extension Opentelemetry_Proto_Trace_V1_Status {
 }
 
 public extension Opentelemetry_Proto_Trace_V1_Span {
+    
+    init(_ name: String, start: Date = Date(), kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified) {
+        self.traceID = TraceID().id
+        self.spanID = SpanID().id
+        self.kind = kind
+        self.name = name
+        self.startTimeUnixNano = start.timeUnixNano()
+    }
+    
     static func newEvent(_ name: String, timestamp: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span.Event {
         var event = Opentelemetry_Proto_Trace_V1_Span.Event()
         event.name = name
         event.timeUnixNano = timestamp.timeUnixNano()
         return event
+    }
+}
+
+extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebugStringConvertible, CustomPlaygroundDisplayConvertible {
+    public var description: String {
+        guard let id = SpanID(from: spanID) else {
+            return "Span(\(name):???)"
+        }
+        return "Span(\(name):\(String(describing: id)))"
+    }
+    
+    public var debugDescription: String {
+        guard let spanid = SpanID(from: spanID) else {
+            return "Span[\(name):???:???]"
+        }
+        guard let traceid = TraceID(from: traceID) else {
+            return "Span[\(name):\(String(reflecting: spanid)):???]"
+        }
+        return "Span[\(name):\(String(reflecting: spanid)):\(String(reflecting: traceid))]"
+    }
+
+    public var playgroundDescription: Any {
+        return "Span"
     }
 }
 
