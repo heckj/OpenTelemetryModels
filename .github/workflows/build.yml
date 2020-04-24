@@ -36,6 +36,9 @@ jobs:
     - name: build and test
       run: swift test --enable-code-coverage -v
 
+    - name: doctest the readme
+      run: swift doctest -p README.md
+
     - name: env review
       run: env
 
@@ -46,7 +49,3 @@ jobs:
       run: bash <(curl https://codecov.io/bash)
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-          #- name: format and lint validation
-          #run: swiftformat --lint . && swiftlint
-
