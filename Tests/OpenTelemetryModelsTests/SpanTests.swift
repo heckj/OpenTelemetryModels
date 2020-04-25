@@ -182,11 +182,19 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.attributes.count, 0)
 
-        span.setTag(tag: "bool", value: true)
-        span.setTag(tag: "string", value: "string")
-        XCTAssertEqual(span.attributes.count, 2)
+        span.setTag("bool", true)
+        span.setTag("string", "string")
+        span.setTag("double", 5.5)
+        span.setTag("int", 10)
+        XCTAssertEqual(span.attributes.count, 4)
         XCTAssertEqual(span.attributes[0].key, "bool")
+        XCTAssertEqual(span.attributes[0].boolValue, true)
         XCTAssertEqual(span.attributes[1].key, "string")
+        XCTAssertEqual(span.attributes[1].stringValue, "string")
+        XCTAssertEqual(span.attributes[2].key, "double")
+        XCTAssertEqual(span.attributes[2].doubleValue, 5.5)
+        XCTAssertEqual(span.attributes[3].key, "int")
+        XCTAssertEqual(span.attributes[3].intValue, 10)
     }
 
     func testSpan_tags_act_as_dict() {
@@ -194,13 +202,13 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.attributes.count, 0)
 
-        span.setTag(tag: "foo", value: true)
+        span.setTag("foo", true)
         XCTAssertEqual(span.attributes.count, 1)
         XCTAssertEqual(span.attributes[0].key, "foo")
         XCTAssertEqual(span.attributes[0].boolValue, true)
         XCTAssertEqual(span.attributes[0].type, .bool)
 
-        span.setTag(tag: "foo", value: "string")
+        span.setTag("foo", "string")
         XCTAssertEqual(span.attributes.count, 1)
         XCTAssertEqual(span.attributes[0].key, "foo")
         XCTAssertEqual(span.attributes[0].stringValue, "string")

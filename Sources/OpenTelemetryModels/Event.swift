@@ -26,20 +26,47 @@ extension Opentelemetry_Proto_Trace_V1_Span.Event {
     
     // Tag on an event (attribute K/V pair) functions
     mutating func setTag(_ tag: String, _ value: Double) {
-        self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        // if we find an index, we already have a tag with that name
+        if let index = attributes.firstIndex(where: { $0.key == tag }) {
+            // so replace it with a new tag with the updated value
+            self.attributes[index] = OpenTelemetry.Attribute(tag, value)
+        } else {
+            // otherwise append in the newly provided tag
+            self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        }
     }
 
     mutating func setTag(_ tag: String, _ value: Bool) {
-        self.attributes.append(OpenTelemetry.Attribute(tag, value))
-
+        // if we find an index, we already have a tag with that name
+        if let index = attributes.firstIndex(where: { $0.key == tag }) {
+            // so replace it with a new tag with the updated value
+            self.attributes[index] = OpenTelemetry.Attribute(tag, value)
+        } else {
+            // otherwise append in the newly provided tag
+            self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        }
     }
 
     mutating func setTag(_ tag: String, _ value: Int) {
-        self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        // if we find an index, we already have a tag with that name
+        if let index = attributes.firstIndex(where: { $0.key == tag }) {
+            // so replace it with a new tag with the updated value
+            self.attributes[index] = OpenTelemetry.Attribute(tag, value)
+        } else {
+            // otherwise append in the newly provided tag
+            self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        }
     }
 
     mutating func setTag(_ tag: String, _ value: String) {
-        self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        // if we find an index, we already have a tag with that name
+        if let index = attributes.firstIndex(where: { $0.key == tag }) {
+            // so replace it with a new tag with the updated value
+            self.attributes[index] = OpenTelemetry.Attribute(tag, value)
+        } else {
+            // otherwise append in the newly provided tag
+            self.attributes.append(OpenTelemetry.Attribute(tag, value))
+        }
     }
 
 }

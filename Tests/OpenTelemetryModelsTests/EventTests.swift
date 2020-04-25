@@ -51,9 +51,17 @@ final class EventTests: XCTestCase {
 
         evt.setTag("bool", true)
         evt.setTag("string", "string")
-        XCTAssertEqual(evt.attributes.count, 2)
+        evt.setTag("double", 5.5)
+        evt.setTag("int", 10)
+        XCTAssertEqual(evt.attributes.count, 4)
         XCTAssertEqual(evt.attributes[0].key, "bool")
+        XCTAssertEqual(evt.attributes[0].boolValue, true)
         XCTAssertEqual(evt.attributes[1].key, "string")
+        XCTAssertEqual(evt.attributes[1].stringValue, "string")
+        XCTAssertEqual(evt.attributes[2].key, "double")
+        XCTAssertEqual(evt.attributes[2].doubleValue, 5.5)
+        XCTAssertEqual(evt.attributes[3].key, "int")
+        XCTAssertEqual(evt.attributes[3].intValue, 10)
     }
 
     func testEvent_tags_act_as_dict() {
