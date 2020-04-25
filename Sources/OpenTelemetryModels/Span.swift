@@ -96,63 +96,57 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
 
     // Start and Finish
 
-    static func start(name: String,
-               fromParent: Opentelemetry_Proto_Trace_V1_Span? = nil,
-               kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified,
-               start: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span {
-        var newSpan = Opentelemetry_Proto_Trace_V1_Span()
+    init(_ name: String,
+         span: SpanID = SpanID(),
+         fromParent: OpenTelemetry.Span? = nil,
+         kind: OpenTelemetry.SpanKind = .unspecified,
+         start: Date = Date(),
+         attr: [OpenTelemetry.Attribute] = []) {
+        self.spanID = SpanID().id
+        self.name = name
+        // NOTE(heckj): kind of an open question - but I think we'll always want
+        // to create a span with a startTime. I don't think there's a use case
+        // where we want to relegate this to another method (such as Span.start()
+        self.startTimeUnixNano = start.timeUnixNano()
+        self.kind = kind
+        self.attributes = attr
         if let parent = fromParent {
-            newSpan.parentSpanID = parent.spanID
-            // replicate traceState from a parent
-            newSpan.traceState = parent.traceState
+            self.parentSpanID = parent.spanID
             // replicate the traceID from the parent
-            newSpan.traceID = parent.traceID
-            // copy all attributes from the parent
-            newSpan.attributes = parent.attributes
-            // copy all links ? (not sure if this is actually correct)
-            newSpan.links = parent.links
+            self.traceID = parent.traceID
         } else {
-            newSpan.traceID = TraceID().id
+            self.traceID = TraceID().id
         }
-        newSpan.spanID = SpanID().id
-        newSpan.name = name
-        newSpan.kind = kind
-        newSpan.startTimeUnixNano = start.timeUnixNano()
-        return newSpan
     }
 
     static func start(name: String,
-               kind: Opentelemetry_Proto_Trace_V1_Span.SpanKind = .unspecified,
-               start: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span {
-        var newSpan = Opentelemetry_Proto_Trace_V1_Span()
-        newSpan.traceID = TraceID().id
-        newSpan.spanID = SpanID().id
-        newSpan.kind = kind
-        newSpan.name = name
-        newSpan.startTimeUnixNano = start.timeUnixNano()
-        return newSpan
+                      fromParent: OpenTelemetry.Span? = nil,
+                      kind: OpenTelemetry.SpanKind = .unspecified,
+                      attr: [OpenTelemetry.Attribute] = []
+    ) -> OpenTelemetry.Span {
+        return OpenTelemetry.Span(name, fromParent: fromParent, kind: kind, attr: attr)
     }
 
-    func createChildSpan(name: String) -> Opentelemetry_Proto_Trace_V1_Span {
-        Opentelemetry_Proto_Trace_V1_Span.start(name: name, fromParent: self)
+    func createChildSpan(name: String) -> OpenTelemetry.Span {
+        OpenTelemetry.Span.start(name: name, fromParent: self)
     }
 
     mutating func finish(end: Date = Date()) {
         self.endTimeUnixNano = end.timeUnixNano()
 
-        var finalStatus = Opentelemetry_Proto_Trace_V1_Status()
-        finalStatus.code = Opentelemetry_Proto_Trace_V1_Status.StatusCode.ok
+        var finalStatus = OpenTelemetry.Status()
+        finalStatus.code = OpenTelemetry.StatusCode.ok
         self.status = status
     }
 
-    mutating func finish(end: Date = Date(), withStatus: Opentelemetry_Proto_Trace_V1_Status) {
+    mutating func finish(end: Date = Date(), withStatus: OpenTelemetry.Status) {
         self.endTimeUnixNano = end.timeUnixNano()
         self.status = withStatus
     }
 
-    mutating func finish(end: Date = Date(), withStatusCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode) {
+    mutating func finish(end: Date = Date(), withStatusCode: OpenTelemetry.StatusCode) {
         self.endTimeUnixNano = end.timeUnixNano()
-        var finalStatus = Opentelemetry_Proto_Trace_V1_Status()
+        var finalStatus = OpenTelemetry.Status()
         finalStatus.code = withStatusCode
         self.status = finalStatus
     }

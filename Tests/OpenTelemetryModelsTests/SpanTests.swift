@@ -31,7 +31,7 @@ final class SpanStatusTests: XCTestCase {
 final class SpanTests: XCTestCase {
 
     func testSpan_default_initializer() {
-        let span = Opentelemetry_Proto_Trace_V1_Span()
+        let span = OpenTelemetry.Span()
         XCTAssertNotNil(span)
         XCTAssertEqual(span.spanID.count, 0)
         XCTAssertEqual(span.traceID.count, 0)
@@ -47,7 +47,7 @@ final class SpanTests: XCTestCase {
     }
     
     func testSpan_convenience_initializer() {
-        let span = Opentelemetry_Proto_Trace_V1_Span("mary")
+        let span = OpenTelemetry.Span("mary")
         XCTAssertEqual(span.spanID.count, 8)
         XCTAssertEqual(span.traceID.count, 16)
         XCTAssertNotNil(span)
@@ -62,18 +62,36 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.events.count, 0)
         XCTAssertEqual(span.attributes.count, 0)
     }
-    
+
+    func testSpan_convenience_initializer_with_values() {
+        let span = OpenTelemetry.Span("fred", kind: .internal, attr: [OpenTelemetry.Attribute("abc", 123)])
+        XCTAssertEqual(span.spanID.count, 8)
+        XCTAssertEqual(span.traceID.count, 16)
+        XCTAssertNotNil(span)
+        XCTAssertEqual(span.name, "fred")
+        XCTAssertNotNil(span.startDate())
+        XCTAssertTrue(span.startTimeUnixNano > 0)
+
+        XCTAssertNil(span.endDate())
+        XCTAssertEqual(span.endTimeUnixNano, 0)
+        XCTAssertFalse(span.hasStatus)
+        XCTAssertEqual(span.kind, .internal)
+        XCTAssertEqual(span.events.count, 0)
+        XCTAssertEqual(span.attributes.count, 1)
+        XCTAssertEqual(span["abc"]?.intValue, 123)
+    }
+
     // String conformances
     
     func testSpan_description() {
-        let span = Opentelemetry_Proto_Trace_V1_Span("mary")
+        let span = OpenTelemetry.Span("mary")
         let result = String(describing: span)
         print(result)
         XCTAssertTrue(result.starts(with: "Span(mary"))
     }
 
     func testSpan_debugDescription() {
-        let span = Opentelemetry_Proto_Trace_V1_Span("mary")
+        let span = OpenTelemetry.Span("mary")
         let result = String(reflecting: span)
         print(result)
         XCTAssertTrue(result.starts(with: "Span[mary"))
@@ -85,7 +103,7 @@ final class SpanTests: XCTestCase {
     // start & finish
 
     func testSpan_start() {
-        let span = Opentelemetry_Proto_Trace_V1_Span.start(name: "fred")
+        let span = OpenTelemetry.Span.start(name: "fred")
         XCTAssertNotNil(span)
         XCTAssertEqual(span.name, "fred")
         XCTAssertNotNil(span.startDate())
@@ -95,7 +113,7 @@ final class SpanTests: XCTestCase {
     }
 
     func testSpan_start_withKind() {
-        let span = Opentelemetry_Proto_Trace_V1_Span.start(name: "newspan", kind: .internal)
+        let span = OpenTelemetry.Span.start(name: "newspan", kind: .internal)
         XCTAssertNotNil(span)
         XCTAssertEqual(span.name, "newspan")
         XCTAssertNotNil(span.startDate())
@@ -105,7 +123,7 @@ final class SpanTests: XCTestCase {
     }
 
     func testSpan_createChildSpan() {
-        let span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        let span = OpenTelemetry.Span.start(name: "parent")
         let child = span.createChildSpan(name: "child")
 
         XCTAssertEqual(span.name, "parent")
@@ -125,10 +143,9 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(child.traceID, span.traceID)
         XCTAssertEqual(child.parentSpanID, span.spanID)
     }
-    // TODO(heckj): test replication of attributes, tracestate, and any links
 
     func testSpan_finish() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "fred")
+        var span = OpenTelemetry.Span.start(name: "fred")
         XCTAssertNotNil(span)
         XCTAssertNil(span.endDate())
 
@@ -138,12 +155,12 @@ final class SpanTests: XCTestCase {
         XCTAssertNotNil(span.endDate())
         XCTAssertTrue(span.startTimeUnixNano >= span.endTimeUnixNano)
         // and a default status of OK
-        XCTAssertEqual(span.status.code, Opentelemetry_Proto_Trace_V1_Status.StatusCode.ok)
+        XCTAssertEqual(span.status.code, OpenTelemetry.StatusCode.ok)
         XCTAssertTrue(span.hasStatus)
     }
 
     func testSpan_finish_with_failureCode() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "fred")
+        var span = OpenTelemetry.Span.start(name: "fred")
         XCTAssertNotNil(span)
         XCTAssertNil(span.endDate())
 
@@ -151,16 +168,16 @@ final class SpanTests: XCTestCase {
         // with a later end date
         XCTAssertNotNil(span.endDate())
         XCTAssertTrue(span.startTimeUnixNano >= span.endTimeUnixNano)        // and a default status of OK
-        XCTAssertEqual(span.status.code, Opentelemetry_Proto_Trace_V1_Status.StatusCode.notFound)
+        XCTAssertEqual(span.status.code, OpenTelemetry.StatusCode.notFound)
         XCTAssertTrue(span.hasStatus)
     }
 
     func testSpan_finish_with_status() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "fred")
+        var span = OpenTelemetry.Span.start(name: "fred")
         XCTAssertNotNil(span)
         XCTAssertNil(span.endDate())
 
-        var spanStatus = Opentelemetry_Proto_Trace_V1_Status()
+        var spanStatus = OpenTelemetry.Status()
         spanStatus.code = .aborted
         spanStatus.message = "abort message"
         span.finish(withStatus: spanStatus)
@@ -170,7 +187,7 @@ final class SpanTests: XCTestCase {
         // and a status
         XCTAssertNotNil(span.status)
         // and a default status of OK
-        XCTAssertEqual(span.status.code, Opentelemetry_Proto_Trace_V1_Status.StatusCode.aborted)
+        XCTAssertEqual(span.status.code, OpenTelemetry.StatusCode.aborted)
         XCTAssertEqual(span.status.message, "abort message")
         XCTAssertTrue(span.hasStatus)
     }
@@ -178,7 +195,7 @@ final class SpanTests: XCTestCase {
     // tags
 
     func testSpan_setTag() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        var span = OpenTelemetry.Span.start(name: "parent")
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.attributes.count, 0)
 
@@ -198,7 +215,7 @@ final class SpanTests: XCTestCase {
     }
 
     func testSpan_tags_act_as_dict() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        var span = OpenTelemetry.Span.start(name: "parent")
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.attributes.count, 0)
 
@@ -216,7 +233,7 @@ final class SpanTests: XCTestCase {
     }
 
     func testSpan_subscript_read_attr() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "harriet")
+        var span = OpenTelemetry.Span.start(name: "harriet")
         span.setTag("foo", true)
         XCTAssertEqual(span["foo"], OpenTelemetry.Attribute("foo", true))
     }
@@ -224,7 +241,7 @@ final class SpanTests: XCTestCase {
     // adding an event
 
     func testSpan_createEvent() {
-        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
+        var span = OpenTelemetry.Span.start(name: "parent")
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.events.count, 0)
         span.addEvent("newevent")
