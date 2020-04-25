@@ -1,12 +1,15 @@
 # OpenTelemetryModels
 
-Swift Package wrapper around the OpenTelemetry models defined as protobufs
+![swift-5.1](https://img.shields.io/badge/Swift-5.1-orange.svg "Swift 5.1")
+![swiftpm](https://img.shields.io/badge/swiftpm-compatible-brightgreen.svg?style=flat "SwiftPM Compatible")
+![@heckj](https://img.shields.io/badge/twitter-@heckj-blue.svg?style=flat "Twitter: @heckj")
+[![codecov](https://codecov.io/gh/heckj/OpenTelemetryModels/branch/master/graph/badge.svg)](https://codecov.io/gh/heckj/OpenTelemetryModels)
 
-## checkout, build, and test
-
-This project uses OpenTelemetry protobuf definitions from a submodule:
+Swift Package wrapper around low-level OpenTelemetry models, and conveniences for using them. This **is not** an OpenTelemetry SDK or API implementation, but might be useful in creating one of those. See the goals below for more detail and background.
 
 ## Dev Quickstart
+
+This project uses OpenTelemetry protobuf definitions from a submodule, generates over them, and adds conveniences in extensions:
 
     brew bundle
     git submodule update --init
