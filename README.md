@@ -6,10 +6,14 @@ Swift Package wrapper around the OpenTelemetry models defined as protobufs
 
 This project uses OpenTelemetry protobuf definitions from a submodule:
 
-    brew install swift-protobuf
+## Dev Quickstart
+
+    brew bundle
     git submodule update --init
     ./scripts/generate_sources.sh
     swift test
+    swift docker test --args --enable-test-discovery
+    swift doctest --package README.md
 
 ## Goals for this project
 
