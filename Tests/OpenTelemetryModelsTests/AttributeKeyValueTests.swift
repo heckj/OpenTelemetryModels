@@ -12,7 +12,7 @@ final class AttributeKeyValueTests: XCTestCase {
     // initialization
 
     func test_builtinKV_init() {
-        let attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
+        let attr = OpenTelemetry.Attribute()
         XCTAssertNotNil(attr)
         XCTAssertEqual(attr.type, .string)
         XCTAssertEqual(attr.key, "")
@@ -20,10 +20,13 @@ final class AttributeKeyValueTests: XCTestCase {
         XCTAssertEqual(attr.boolValue, false)
         XCTAssertEqual(attr.intValue, 0)
         XCTAssertEqual(attr.doubleValue, 0.0)
+        
+        XCTAssertEqual(String(describing: attr), "Attr(:)");
+        XCTAssertEqual(String(reflecting: attr), "Attr[:]");
     }
 
     func test_newAttribute_string() {
-        let attr = OpenTelemetry.Attribute.newAttribute(key: "foo", value: "bar")
+        let attr = OpenTelemetry.Attribute("foo", "bar")
         XCTAssertNotNil(attr)
         XCTAssertEqual(attr.type, .string)
         XCTAssertEqual(attr.key, "foo")
@@ -32,10 +35,14 @@ final class AttributeKeyValueTests: XCTestCase {
         XCTAssertEqual(attr.boolValue, false)
         XCTAssertEqual(attr.intValue, 0)
         XCTAssertEqual(attr.doubleValue, 0.0)
+        
+        XCTAssertEqual(String(describing: attr), "Attr(foo:bar)");
+        XCTAssertEqual(String(reflecting: attr), "Attr[foo:bar]");
+
     }
 
     func test_newAttribute_bool() {
-        let attr = OpenTelemetry.Attribute.newAttribute(key: "foo", value: true)
+        let attr = OpenTelemetry.Attribute("foo", true)
         XCTAssertNotNil(attr)
         XCTAssertEqual(attr.type, .bool)
         XCTAssertEqual(attr.key, "foo")
@@ -44,10 +51,13 @@ final class AttributeKeyValueTests: XCTestCase {
         XCTAssertEqual(attr.stringValue, "")
         XCTAssertEqual(attr.intValue, 0)
         XCTAssertEqual(attr.doubleValue, 0.0)
+        
+        XCTAssertEqual(String(describing: attr), "Attr(foo:true)");
+        XCTAssertEqual(String(reflecting: attr), "Attr[foo:true]");
     }
 
     func test_newAttribute_int() {
-        let attr = OpenTelemetry.Attribute.newAttribute(key: "foo", value: 10)
+        let attr = OpenTelemetry.Attribute("foo", 10)
         XCTAssertNotNil(attr)
         XCTAssertEqual(attr.type, .int)
         XCTAssertEqual(attr.key, "foo")
@@ -56,10 +66,13 @@ final class AttributeKeyValueTests: XCTestCase {
         XCTAssertEqual(attr.stringValue, "")
         XCTAssertEqual(attr.boolValue, false)
         XCTAssertEqual(attr.doubleValue, 0.0)
+        
+        XCTAssertEqual(String(describing: attr), "Attr(foo:10)");
+        XCTAssertEqual(String(reflecting: attr), "Attr[foo:10]");
     }
 
     func test_newAttribute_double() {
-        let attr = OpenTelemetry.Attribute.newAttribute(key: "foo", value: 5.5)
+        let attr = OpenTelemetry.Attribute("foo", 5.5)
         XCTAssertNotNil(attr)
         XCTAssertEqual(attr.type, .double)
         XCTAssertEqual(attr.key, "foo")
@@ -68,7 +81,9 @@ final class AttributeKeyValueTests: XCTestCase {
         XCTAssertEqual(attr.stringValue, "")
         XCTAssertEqual(attr.boolValue, false)
         XCTAssertEqual(attr.intValue, 0)
-
+        
+        XCTAssertEqual(String(describing: attr), "Attr(foo:5.5)");
+        XCTAssertEqual(String(reflecting: attr), "Attr[foo:5.5]");
     }
 
 }

@@ -21,25 +21,28 @@ public extension Date {
     }
 }
 
-public extension Opentelemetry_Proto_Trace_V1_Status {
-    //public typealias Status = Opentelemetry_Proto_Trace_V1_Status
+public extension OpenTelemetry {
+    // obj:
+    typealias Span = Opentelemetry_Proto_Trace_V1_Span
+    // obj:
+    typealias Status = Opentelemetry_Proto_Trace_V1_Status
 
-    // TODO(heckj): convert to a convenience initializer
-    static func statusFromCode(code: Opentelemetry_Proto_Trace_V1_Status.StatusCode, message: String?) -> Opentelemetry_Proto_Trace_V1_Status {
-        var status = Opentelemetry_Proto_Trace_V1_Status()
-        status.code = code
+    // enum:
+    typealias StatusCode = Opentelemetry_Proto_Trace_V1_Status.StatusCode
+}
+
+public extension Opentelemetry_Proto_Trace_V1_Status {
+
+    init(code: Opentelemetry_Proto_Trace_V1_Status.StatusCode, message: String?) {
+        self.code = code
         if let message = message {
-            status.message = message
+            self.message = message
         }
-        return status
     }
     
-    // TODO(heckj): convert to a convenience initializer
-    static func status(_ message: String, withCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode) -> Opentelemetry_Proto_Trace_V1_Status {
-        var newstatus = Opentelemetry_Proto_Trace_V1_Status()
-        newstatus.message = message
-        newstatus.code = withCode
-        return newstatus
+    init(_ message: String, withCode: Opentelemetry_Proto_Trace_V1_Status.StatusCode) {
+        self.code = withCode
+        self.message = message
     }
 }
 
@@ -52,14 +55,6 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         self.name = name
         self.startTimeUnixNano = start.timeUnixNano()
     }
-    
-    // TODO(heckj): consider killing this off
-    static func newEvent(_ name: String, timestamp: Date = Date()) -> Opentelemetry_Proto_Trace_V1_Span.Event {
-        var event = Opentelemetry_Proto_Trace_V1_Span.Event()
-        event.name = name
-        event.timeUnixNano = timestamp.timeUnixNano()
-        return event
-    }
 }
 
 extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebugStringConvertible {
@@ -70,6 +65,7 @@ extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebu
         return "Span(\(name):\(String(describing: id)))"
     }
     
+    // consider adding timestamp into the debugDescription
     public var debugDescription: String {
         guard let spanid = SpanID(from: spanID) else {
             return "Span[\(name):???:???]"
@@ -79,47 +75,6 @@ extension Opentelemetry_Proto_Trace_V1_Span: CustomStringConvertible, CustomDebu
         }
         return "Span[\(name):\(String(reflecting: spanid)):\(String(reflecting: traceid))]"
     }
-}
-
-public extension Opentelemetry_Proto_Common_V1_AttributeKeyValue {
-    //public typealias Status = Opentelemetry_Proto_Trace_V1_Status
-
-    // TODO(heckj): convert to a convenience initializer
-    static func newAttribute(key: String, value: String) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
-        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        attr.key = key
-        attr.stringValue = value
-        attr.type = .string
-        return attr
-    }
-
-    // TODO(heckj): convert to a convenience initializer
-    static func newAttribute(key: String, value: Bool) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
-        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        attr.key = key
-        attr.boolValue = value
-        attr.type = .bool
-        return attr
-    }
-    
-    // TODO(heckj): convert to a convenience initializer
-    static func newAttribute(key: String, value: Double) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
-        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        attr.key = key
-        attr.doubleValue = value
-        attr.type = .double
-        return attr
-    }
-
-    // TODO(heckj): convert to a convenience initializer
-    static func newAttribute(key: String, value: Int) -> Opentelemetry_Proto_Common_V1_AttributeKeyValue {
-        var attr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        attr.key = key
-        attr.intValue = Int64(value)
-        attr.type = .int
-        return attr
-    }
-
 }
 
 public extension Opentelemetry_Proto_Trace_V1_Span {
@@ -205,72 +160,30 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
     // Tag on a span (attribute K/V pair) functions
 
     mutating func addTag(tag: String, value: Double) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.doubleValue = value
-        self.attributes.append(newAttr)
+        self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
     mutating func addTag(tag: String, value: Bool) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.boolValue = value
-        self.attributes.append(newAttr)
+        self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
     mutating func addTag(tag: String, value: Int) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.intValue = Int64(value)
-        self.attributes.append(newAttr)
+        self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
     mutating func addTag(tag: String, value: String) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.stringValue = value
-        self.attributes.append(newAttr)
+        self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
     // Event methods
 
     mutating func addEvent(_ name: String, timestamp: Date = Date()) {
-        let evt = Self.newEvent(name, timestamp: timestamp)
+        let evt = Event(name, at: timestamp)
         self.events.append(evt)
     }
-}
 
-extension Opentelemetry_Proto_Trace_V1_Span.Event {
-
-    // Tag on an event (attribute K/V pair) functions
-
-    mutating func addTag(tag: String, value: Double) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.doubleValue = value
-        self.attributes.append(newAttr)
-    }
-
-    mutating func addTag(tag: String, value: Bool) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.boolValue = value
-        self.attributes.append(newAttr)
-    }
-
-    mutating func addTag(tag: String, value: Int) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.intValue = Int64(value)
-        self.attributes.append(newAttr)
-    }
-
-    mutating func addTag(tag: String, value: String) {
-        var newAttr = Opentelemetry_Proto_Common_V1_AttributeKeyValue()
-        newAttr.key = tag
-        newAttr.stringValue = value
-        self.attributes.append(newAttr)
+    mutating func addEvent(_ evt: Event) {
+        self.events.append(evt)
     }
 
 }
-

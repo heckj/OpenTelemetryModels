@@ -13,14 +13,14 @@ final class SpanStatusTests: XCTestCase {
     // initialization
 
     func testSpanStatus_init() {
-        let status = Opentelemetry_Proto_Trace_V1_Status.status("new", withCode: .failedPrecondition)
+        let status = OpenTelemetry.Status("new", withCode: .failedPrecondition)
         XCTAssertNotNil(status)
         XCTAssertEqual(status.message, "new")
         XCTAssertEqual(status.code, .failedPrecondition)
     }
 
     func testSpanStatus_default_init() {
-        let status = Opentelemetry_Proto_Trace_V1_Status()
+        let status = OpenTelemetry.Status()
         XCTAssertNotNil(status)
         XCTAssertEqual(status.message, "")
         XCTAssertEqual(status.code, .ok)
@@ -211,31 +211,4 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.events.count, 1)
         XCTAssertEqual(span.events[0].name, "newevent")
     }
-
-    // event tags
-
-    func testEvent_createEvent() {
-        var evt = OpenTelemetry.Span.newEvent("newevent")
-        XCTAssertEqual(evt.name, "newevent")
-        XCTAssertEqual(evt.attributes.count, 0)
-
-        evt.addTag(tag: "bool", value: true)
-        evt.addTag(tag: "string", value: "string")
-        XCTAssertEqual(evt.attributes.count, 2)
-        XCTAssertEqual(evt.attributes[0].key, "bool")
-        XCTAssertEqual(evt.attributes[1].key, "string")
-    }
-
-    func testEvent_tags_act_as_list() {
-        var evt = OpenTelemetry.Span.newEvent("newevent")
-        XCTAssertEqual(evt.name, "newevent")
-        XCTAssertEqual(evt.attributes.count, 0)
-
-        evt.addTag(tag: "foo", value: true)
-        evt.addTag(tag: "foo", value: "string")
-        XCTAssertEqual(evt.attributes.count, 2)
-        XCTAssertEqual(evt.attributes[0].key, "foo")
-        XCTAssertEqual(evt.attributes[1].key, "foo")
-    }
-
 }
