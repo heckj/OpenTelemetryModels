@@ -159,19 +159,19 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
 
     // Tag on a span (attribute K/V pair) functions
 
-    mutating func addTag(tag: String, value: Double) {
+    mutating func setTag(tag: String, value: Double) {
         self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
-    mutating func addTag(tag: String, value: Bool) {
+    mutating func setTag(tag: String, value: Bool) {
         self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
-    mutating func addTag(tag: String, value: Int) {
+    mutating func setTag(tag: String, value: Int) {
         self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 
-    mutating func addTag(tag: String, value: String) {
+    mutating func setTag(tag: String, value: String) {
         self.attributes.append(OpenTelemetry.Attribute(tag, value))
     }
 

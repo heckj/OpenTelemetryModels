@@ -49,23 +49,29 @@ final class EventTests: XCTestCase {
         XCTAssertEqual(evt.name, "newevent")
         XCTAssertEqual(evt.attributes.count, 0)
 
-        evt.addTag("bool", true)
-        evt.addTag("string", "string")
+        evt.setTag("bool", true)
+        evt.setTag("string", "string")
         XCTAssertEqual(evt.attributes.count, 2)
         XCTAssertEqual(evt.attributes[0].key, "bool")
         XCTAssertEqual(evt.attributes[1].key, "string")
     }
 
-    func testEvent_tags_act_as_list() {
+    func testEvent_tags_act_as_dict() {
         var evt = OpenTelemetry.Event("newevent")
         XCTAssertEqual(evt.name, "newevent")
         XCTAssertEqual(evt.attributes.count, 0)
 
-        evt.addTag("foo", true)
-        evt.addTag("foo", "string")
-        XCTAssertEqual(evt.attributes.count, 2)
+        evt.setTag("foo", true)
+        XCTAssertEqual(evt.attributes.count, 1)
         XCTAssertEqual(evt.attributes[0].key, "foo")
-        XCTAssertEqual(evt.attributes[1].key, "foo")
+        XCTAssertEqual(evt.attributes[0].boolValue, true)
+        XCTAssertEqual(evt.attributes[0].type, .bool)
+
+        evt.setTag("foo", "string")
+        XCTAssertEqual(evt.attributes.count, 1)
+        XCTAssertEqual(evt.attributes[0].key, "foo")
+        XCTAssertEqual(evt.attributes[0].stringValue, "string")
+        XCTAssertEqual(evt.attributes[0].type, .string)
     }
 
 }

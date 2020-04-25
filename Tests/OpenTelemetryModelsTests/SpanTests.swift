@@ -182,26 +182,32 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.attributes.count, 0)
 
-        span.addTag(tag: "bool", value: true)
-        span.addTag(tag: "string", value: "string")
+        span.setTag(tag: "bool", value: true)
+        span.setTag(tag: "string", value: "string")
         XCTAssertEqual(span.attributes.count, 2)
         XCTAssertEqual(span.attributes[0].key, "bool")
         XCTAssertEqual(span.attributes[1].key, "string")
     }
 
-    func testSpan_tags_act_as_list() {
+    func testSpan_tags_act_as_dict() {
         var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
         XCTAssertEqual(span.name, "parent")
         XCTAssertEqual(span.attributes.count, 0)
 
-        span.addTag(tag: "foo", value: true)
-        span.addTag(tag: "foo", value: "string")
-        XCTAssertEqual(span.attributes.count, 2)
+        span.setTag(tag: "foo", value: true)
+        XCTAssertEqual(span.attributes.count, 1)
         XCTAssertEqual(span.attributes[0].key, "foo")
-        XCTAssertEqual(span.attributes[1].key, "foo")
+        XCTAssertEqual(span.attributes[0].boolValue, true)
+        XCTAssertEqual(span.attributes[0].type, .bool)
+
+        span.setTag(tag: "foo", value: "string")
+        XCTAssertEqual(span.attributes.count, 1)
+        XCTAssertEqual(span.attributes[0].key, "foo")
+        XCTAssertEqual(span.attributes[0].stringValue, "string")
+        XCTAssertEqual(span.attributes[0].type, .string)
     }
 
-    // events
+    // adding an event
 
     func testSpan_createEvent() {
         var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "parent")
