@@ -215,6 +215,12 @@ final class SpanTests: XCTestCase {
         XCTAssertEqual(span.attributes[0].type, .string)
     }
 
+    func testSpan_subscript_read_attr() {
+        var span = Opentelemetry_Proto_Trace_V1_Span.start(name: "harriet")
+        span.setTag("foo", true)
+        XCTAssertEqual(span["foo"], OpenTelemetry.Attribute("foo", true))
+    }
+
     // adding an event
 
     func testSpan_createEvent() {

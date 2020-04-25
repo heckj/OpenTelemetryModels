@@ -157,6 +157,11 @@ public extension Opentelemetry_Proto_Trace_V1_Span {
         self.status = finalStatus
     }
 
+    // enable subscript access to attributes
+    subscript(tag: String) -> OpenTelemetry.Attribute? {
+        return attributes.first(where: { $0.key == tag })
+    }
+
     // Tag on a span (attribute K/V pair) functions
 
     mutating func setTag(_ tag: String, _ value: Double) {

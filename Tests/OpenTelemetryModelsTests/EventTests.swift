@@ -82,4 +82,10 @@ final class EventTests: XCTestCase {
         XCTAssertEqual(evt.attributes[0].type, .string)
     }
 
+    func testEvent_subscript_read_attr() {
+        var evt = Opentelemetry_Proto_Trace_V1_Span.start(name: "harriet")
+        evt.setTag("foo", true)
+        XCTAssertEqual(evt["foo"], OpenTelemetry.Attribute("foo", true))
+    }
+
 }

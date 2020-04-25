@@ -18,10 +18,15 @@ extension Opentelemetry_Proto_Trace_V1_Span.Event {
         self.timeUnixNano = at.timeUnixNano()
     }
     
-    init(_ name: String, at: Date = Date(), attr: [Opentelemetry_Proto_Common_V1_AttributeKeyValue]) {
+    init(_ name: String, at: Date = Date(), attr: [OpenTelemetry.Attribute]) {
         self.name = name
         self.timeUnixNano = at.timeUnixNano()
         self.attributes = attr
+    }
+
+    // enable subscript access to attributes
+    subscript(tag: String) -> OpenTelemetry.Attribute? {
+        return attributes.first(where: { $0.key == tag })
     }
     
     // Tag on an event (attribute K/V pair) functions
