@@ -11,7 +11,7 @@ public extension OpenTelemetry {
     typealias Event = Opentelemetry_Proto_Trace_V1_Span.Event
 }
 
-extension Opentelemetry_Proto_Trace_V1_Span.Event {
+public extension Opentelemetry_Proto_Trace_V1_Span.Event {
 
     init(_ name: String, at: Date = Date()) {
         self.name = name

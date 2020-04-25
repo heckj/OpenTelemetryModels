@@ -39,5 +39,19 @@ final class PackagingTests: XCTestCase {
         let _ = OpenTelemetry.Event()
         let _ = OpenTelemetry.SpanLink()
         let _ = OpenTelemetry.SpanKind()
+        let _ = OpenTelemetry.Attribute()
     }
+
+    func testExposedEventExtensions() {
+        let _ = OpenTelemetry.Event("foo")
+    }
+
+    func testExposedAttributeExtensions() {
+        let _ = OpenTelemetry.Attribute("foo",true)
+    }
+
+    func testExposedSpanExtensions() {
+        let _ = OpenTelemetry.Span("foo")
+    }
+
 }
