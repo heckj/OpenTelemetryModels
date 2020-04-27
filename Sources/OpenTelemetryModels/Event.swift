@@ -1,6 +1,6 @@
 //
 //  Event.swift
-//  
+//
 //
 //  Created by Joseph Heck on 4/24/20.
 //
@@ -17,18 +17,22 @@ public extension Opentelemetry_Proto_Trace_V1_Span.Event {
         self.name = name
         self.timeUnixNano = at.timeUnixNano()
     }
-    
+
     init(_ name: String, at: Date = Date(), attr: [OpenTelemetry.Attribute]) {
         self.name = name
         self.timeUnixNano = at.timeUnixNano()
         self.attributes = attr
     }
 
+    func timestamp() -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(self.timeUnixNano))
+    }
+
     // enable subscript access to attributes
     subscript(tag: String) -> OpenTelemetry.Attribute? {
         return attributes.first(where: { $0.key == tag })
     }
-    
+
     // Tag on an event (attribute K/V pair) functions
     mutating func setTag(_ tag: String, _ value: Double) {
         // if we find an index, we already have a tag with that name
@@ -80,7 +84,7 @@ extension Opentelemetry_Proto_Trace_V1_Span.Event: CustomStringConvertible, Cust
     public var description: String {
         return "Event(\(name))"
     }
-    
+
     // consider adding timestamp into the debugDescription
     public var debugDescription: String {
         return "Event[\(name)]"

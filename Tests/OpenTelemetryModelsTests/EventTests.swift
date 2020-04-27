@@ -36,6 +36,14 @@ final class EventTests: XCTestCase {
         XCTAssertTrue(x.timeUnixNano > 0)
     }
 
+    func testEvent_timestamp() {
+        let x = OpenTelemetry.Event("foo")
+        XCTAssertNotNil(x.timestamp())
+        XCTAssertTrue(x.timestamp().timeUnixNano() > 0)
+        XCTAssertEqual(String(describing: x), "Event(foo)")
+        XCTAssertEqual(String(reflecting: x), "Event[foo]")
+    }
+
     func testEvent_descriptions() {
         let x = OpenTelemetry.Event("foo")
         XCTAssertEqual(String(describing: x), "Event(foo)")
