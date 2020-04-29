@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 pushd opentelemetry-proto
 FILES=$(find opentelemetry/proto/*/v1 -name "*.proto")
 
