@@ -45,21 +45,22 @@ jobs:
 
   macos_build:
     runs-on: macos-latest
+    env:
+      # sets the version of Xcode to utilize within the VM for all steps
+      DEVELOPER_DIR: /Applications/Xcode_11.5.app/Contents/Developer
+
     steps:
     - name: Checkout Project
       uses: actions/checkout@v1
 
-    - name: Switch to Xcode 11
-      run: sudo xcode-select -s /Applications/Xcode_11.4.app
+    # - name: generate xcode project for xcodebuild
+    #   run: swift package generate-xcodeproj
 
-    - name: generate xcode project for xcodebuild
-      run: swift package generate-xcodeproj
+    # - name: Show Build Version
+    #   run: xcodebuild -version
 
-    - name: Show Build Version
-      run: xcodebuild -version
-
-    - name: Show Build Settings
-      run: xcodebuild -showBuildSettings
+    # - name: Show Build Settings
+    #   run: xcodebuild -showBuildSettings
 
     - name: Show Build SDK
       run: xcodebuild -showsdks
